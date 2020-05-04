@@ -7,9 +7,10 @@ title = "Koifish"
 description = "The Koifish Book."
 
 [output.html]
-default-theme="ayu"
-git_repository_url="https://github.com/trisasnava/koifish/tree/master/docs/src"
-# google-analytics = ""
+default-theme = "ayu"
+git-repository-url = "https://github.com/trisasnava/koifish/tree/master/docs/src"
 
 [output.html.playpen]
-editable=true
+editable = true
+copy-js = true
+line-numbers = true

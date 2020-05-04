@@ -2,7 +2,7 @@
 
 # Koifish
 
-![Logo](../theme/favicon.png) 
+![Logo](./favicon.png) 
 
 [![Build Status](https://travis-ci.com/trisasnava/koifish.svg?branch=master)](https://travis-ci.com/trisasnava/koifish)
 

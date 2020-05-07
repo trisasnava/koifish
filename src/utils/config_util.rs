@@ -1,3 +1,3 @@
-fn GiHub() {
+fn get_github_token() {
 
 }

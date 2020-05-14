@@ -2,7 +2,7 @@
 
 ```shell script
 >  koifish  
-    Start koifish in local CLI
+    Start koifish in local cli
 
 >  koifish -h 
      -h  Help

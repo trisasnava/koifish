@@ -6,8 +6,8 @@
     * [Installation](getting-started/installation.md)
     
 * [Contributing](contributing/index.md)
-    * [Sign the CLA](contributing/cla.md)
     * [Code of Conduct](contributing/CODE_OF_CONDUCT.md)
+    * [Sign the CLA](contributing/cla.md)
     * [Code contribution](contributing/code.md)
     * [Document contribution](contributing/document.md)
 

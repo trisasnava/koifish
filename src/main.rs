@@ -5,6 +5,11 @@ mod widgets;
 mod model;
 mod app;
 
-fn main() {
-    App::new()
+#[paw::main]
+fn main(args: paw::Args) {
+    if args.len() == 1 {
+        App::new_tui();
+    } else {
+        App::new_cli();
+    }
 }

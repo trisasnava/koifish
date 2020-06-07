@@ -2,8 +2,8 @@ use structopt::StructOpt;
 
 #[derive(Debug, PartialEq, StructOpt)]
 #[structopt(about = "
-    █▄▀ █▀█ ░ █▀▀ ░ █▀ █░█
-    █░█ █▄█ █ █▀▀ █ ▄█ █▀█")]
+█▄▀ █▀█ ░ █▀▀ ░ █▀ █░█
+█░█ █▄█ █ █▀▀ █ ▄█ █▀█")]
 pub struct Koifish {
     /// Run a online Koifish in https://webassembly.sh
     #[structopt(short = "o", long = "oline", default_value = "")]
@@ -38,14 +38,14 @@ enum Fish {
         repo: String,
     },
     /// Get GitHub issues info in your repo.
-    Issue {
+    Issues {
         #[structopt(default_value = "trisasnava")]
         user_or_org: String,
         #[structopt(default_value = "koifish")]
         repo: String,
     },
     /// Get GitHub prs info for your repo.
-    Pr {
+    Prs {
         #[structopt(default_value = "trisasnava")]
         user_or_org: String,
         #[structopt(default_value = "koifish")]
@@ -61,7 +61,7 @@ enum Fish {
 
 impl Koifish {
     /// Match command line args
-    pub fn match_args() -> Koifish {
+    pub fn match_args() -> Self {
         Koifish::from_args()
     }
 }

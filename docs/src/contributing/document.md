@@ -1,15 +1,25 @@
 # Document contribution
 
-1.  install mdbook
+1.  Install mdbook `cargo install mdbook` 
 
-```shell script
-cargo install mdbook 
-```
+2. `git clone git@github.com:trisasnava/koifish.git` 
  
-2.  write Markdown docs under the `docs/src`
+3.  Write Markdown docs under the `docs/src`
 
-3.  run
+```tree
+    ├─docs
+    │  ├─src
+    │  │  ├─commands
+    │  │  ├─contributing
+    │  │  ├─getting-started
+    │  │  ├─guide
+    │  │  ├─reference
+    │  │  └─roadmap
+    │  └─theme
+```
 
-```shell script
-mkbook serve
-``` 
+4. Read [contributor covenant code of conduct](CODE_OF_CONDUCT.md) and [sign the CLA](https://cla-assistant.io/trisasnava/koifish)
+
+5. Run `mdbook serve` and open your browser [`http://localhost:3000`](http://localhost:3000) 
+
+6. Submit a pull request(PR)

@@ -13,12 +13,13 @@ pub struct App {
 }
 
 impl App {
-    //TODO
-
-    pub fn new() {
-        Koifish::match_args();
+    pub fn new_tui() {
         Home::draw();
         Search::draw();
         Details::draw();
+    }
+
+    pub fn new_cli() {
+        Koifish::match_args();
     }
 }

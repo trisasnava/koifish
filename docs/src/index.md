@@ -4,7 +4,7 @@
 
 ![Logo](./favicon.png) 
 
-[![Rust Action](https://img.shields.io/github/workflow/status/trisasnava/koifish/Rust?label=Action)](https://github.com/trisasnava/koifish/actions)
-[![Docs Status](https://img.shields.io/travis/trisasnava/koifish/master?label=Docs)](https://travis-ci.com/trisasnava/koifish)
+![Rust](https://github.com/trisasnava/koifish/workflows/Rust/badge.svg)
+![Mdbook](https://github.com/trisasnava/koifish/workflows/Mdbook/badge.svg)
 
 I am a Fish, name is Koifish.

@@ -2,43 +2,71 @@
 
 # Koifish
 
-[![Rust Action](https://img.shields.io/github/workflow/status/trisasnava/koifish/Rust?label=Action)](https://github.com/trisasnava/koifish/actions)
-[![Docs Status](https://img.shields.io/travis/trisasnava/koifish/master?label=Docs)](https://travis-ci.com/trisasnava/koifish)
+![Rust](https://github.com/trisasnava/koifish/workflows/Rust/badge.svg)
+![Mdbook](https://github.com/trisasnava/koifish/workflows/Mdbook/badge.svg)
 
 I am a Fish, name is Koifish.
 
-# Contributing
+# Code of Conduct
+  
+[Contributor Covenant Code of Conduct](docs/src/contributing/CODE_OF_CONDUCT.md) 
 
-## Code 
+# CLA
 
-1. install rust 
+[Contributor License Agreement](docs/src/contributing/cla.md)
 
-2. install cargo
+# Code contribution
 
-3. run
+1. Install rust 
 
-```shell script
-cargo run 
+2. Install cargo
+
+3. `git clone git@github.com:trisasnava/koifish.git` 
+
+4. Write your code under `src|test`
+
+```tree
+    ├─src
+    │  ├─handler
+    │  ├─model
+    │  └─widgets
+    └─test
 ```
 
-## Docs
+5. Read [contributor covenant code of conduct](CODE_OF_CONDUCT.md) and [sign the CLA](https://cla-assistant.io/trisasnava/koifish)
 
-1.  install mdbook
+6. Submit a pull request(PR) 
 
-```shell script
-cargo install mdbook 
-```
+# Document contribution
+
+1.  Install mdbook `cargo install mdbook` 
+
+2. `git clone git@github.com:trisasnava/koifish.git` 
  
-2.  write Markdown docs under the `docs/src`
+3.  Write Markdown docs under the `docs/src`
 
-3.  run
+```tree
+    ├─docs
+    │  ├─src
+    │  │  ├─commands
+    │  │  ├─contributing
+    │  │  ├─getting-started
+    │  │  ├─guide
+    │  │  ├─reference
+    │  │  └─roadmap
+    │  └─theme
+```
 
-```shell script
-mkbook serve
-``` 
+4. Read [contributor covenant code of conduct](CODE_OF_CONDUCT.md) and [sign the CLA](https://cla-assistant.io/trisasnava/koifish)
+
+5. Run `mdbook serve` and open your browser [`http://localhost:3000`](http://localhost:3000) 
+
+6. Submit a pull request(PR)
 
 # FAQ
+
 [FAQ](docs/src/faq.md)
 
 # LICENSE
+
 [Apache2.0](LICENSE)

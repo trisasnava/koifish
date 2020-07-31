@@ -1,25 +1,17 @@
-use std::io::Error;
-
-use super::widgets::cli::Koifish;
 use super::widgets::details::Details;
 use super::widgets::home::Home;
 use super::widgets::search::Search;
 
-pub struct App {
-    cli: Koifish,
+pub struct TUI {
     home: Home,
     search: Search,
     details: Details,
 }
 
-impl App {
-    pub fn new_tui() {
+impl TUI {
+    pub fn run() {
+        Details::draw();
         Home::draw();
         Search::draw();
-        Details::draw();
-    }
-
-    pub fn new_cli() {
-        Koifish::match_args();
     }
 }

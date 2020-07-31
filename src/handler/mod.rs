@@ -5,3 +5,5 @@ pub mod org;
 pub mod prs;
 pub mod repos;
 pub mod trending;
+pub mod oauth;
+pub mod join;

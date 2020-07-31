@@ -1,30 +1,27 @@
 use structopt::StructOpt;
 
+use crate::handler::join;
+use crate::handler::oauth;
+
 #[derive(Debug, PartialEq, StructOpt)]
-#[structopt(about = "
-█▄▀ █▀█ ░ █▀▀ ░ █▀ █░█
-█░█ █▄█ █ █▀▀ █ ▄█ █▀█")]
-pub struct Koifish {
+#[structopt(name = "
+    █▄▀ █▀█ ░ █▀▀ ░ █▀ █░█
+    █░█ █▄█ █ █▀▀ █ ▄█ █▀█  ")]
+pub enum Koifish {
     /// Run a online Koifish in https://webassembly.sh
-    #[structopt(short = "o", long = "oline", default_value = "")]
-    online: String,
-
-    /// Join our Slack Channel or WeChat Group(QR-Code)
-    #[structopt(short = "j", long = "join", default_value = "slack")]
-    join: String,
-
+    Online,
+    /// Join our slack | github | website
+    Join {
+        #[structopt(default_value = "slack")]
+        channel: String,
+    },
     /// Start a web Koifish in local with your port.
-    #[structopt(short = "w", long = "web", default_value = "2121")]
-    web: String,
-
-    #[structopt(subcommand)]
-    fish: Option<Fish>,
-}
-
-#[derive(Debug, PartialEq, StructOpt)]
-enum Fish {
+    Web {
+        #[structopt(default_value = "2121")]
+        port: String,
+    },
     /// Login to GitHub.
-    Login { user: String, password: String },
+    Login,
     /// Get GitHub user info.
     User {
         #[structopt(default_value = "trisasnava")]
@@ -60,8 +57,32 @@ enum Fish {
 }
 
 impl Koifish {
-    /// Match command line args
-    pub fn match_args() -> Self {
-        Koifish::from_args()
+    /// Match Options
+    pub fn run() {
+        Self::print_matches();
+        match Koifish::from_args() {
+            Koifish::Login => {
+                Self::login();
+            }
+            Koifish::Join { channel } => {
+                Self::join(channel);
+            }
+            _ => {}
+        }
+    }
+
+    /// print matches for test
+    fn print_matches() {
+        println!("{:#?}", Koifish::from_args());
+    }
+
+    // login to GitHub
+    fn login() {
+        oauth::oauth();
+    }
+
+    // join slack channel
+    fn join(channel: String) {
+        join::join(channel);
     }
 }

@@ -345,31 +345,40 @@ fitness for a particular purpose.</p>
 <h1><a class="header" href="#koifish-commands" id="koifish-commands">Koifish Commands</a></h1>
 <pre><code class="language-shellscript">&gt; koifish -h
 
-    koifish 0.0.1
-    
     █▄▀ █▀█ ░ █▀▀ ░ █▀ █░█
-    █░█ █▄█ █ █▀▀ █ ▄█ █▀█
-    
-    USAGE:
-        koifish [OPTIONS] [SUBCOMMAND]
-    
-    FLAGS:
-        -h, --help       Prints help information
-        -V, --version    Prints version information
-    
-    OPTIONS:
-        -j, --join &lt;join&gt;       Join our Slack Channel or WeChat Group(QR-Code) [default: slack]
-        -o, --oline &lt;online&gt;    Run a online Koifish in https://webassembly.sh [default: ]
-        -w, --web &lt;web&gt;         Start a web Koifish in local with your port [default: 2121]
-    
-    SUBCOMMANDS:
-        help        Prints this message or the help of the given subcommand(s)
-        issues      Get GitHub issues info in your repo
-        login       Login to GitHub
-        prs         Get GitHub prs info for your repo
-        repo        Get GitHub repo info
-        trending    Get GitHub trending repo info
-        user        Get GitHub user info
+    █░█ █▄█ █ █▀▀ █ ▄█ █▀█   0.0.1
+
+USAGE:
+    koifish &lt;SUBCOMMAND&gt;
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+SUBCOMMANDS:
+    help        Prints this message or the help of the given subcommand(s)
+    issues      Get GitHub issues info in your repo
+    join        Join our slack | github | website
+    login       Login to GitHub
+    online      Run a online Koifish in https://webassembly.sh
+    prs         Get GitHub prs info for your repo
+    repo        Get GitHub repo info
+    trending    Get GitHub trending repo info
+    user        Get GitHub user info
+    web         Start a web Koifish in local with your port
+</code></pre>
+<h2><a class="header" href="#login" id="login">login</a></h2>
+<p>When you execute this command, koi will open your default browser. 
+And it will oauth your GitHub token to save <code>$HOME/.koi</code> file.</p>
+<pre><code class="language-shellscript">koifish login 
+</code></pre>
+<p>When login successfully,it will redirect to this page.</p>
+<p><img src="https://user-images.githubusercontent.com/25944814/89096743-62784780-d40b-11ea-8a50-8ec50e1ea550.png" alt="" /></p>
+<h2><a class="header" href="#open" id="open">open</a></h2>
+<p>When you execute this command, koi will open this channel 
+using your default browser </p>
+<pre><code class="language-shellscript">koifish open 
+koifish open github | website | docs | slack(default)  
 </code></pre>
 <h1><a class="header" href="#roadmap" id="roadmap">Roadmap</a></h1>
 <p><a href="https://github.com/trisasnava/koifish/projects/2#column-8978297">Roadmap</a></p>

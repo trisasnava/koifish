@@ -18,7 +18,7 @@ use crate::model::oauth::OauthToken;
 pub enum Koifish {
     /// Run a online Koifish in https://webassembly.sh
     Online,
-    /// Join our slack | github | website
+    /// Join our slack | github | website | docs
     Join {
         #[structopt(default_value = "slack")]
         channel: String,

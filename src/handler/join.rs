@@ -4,6 +4,7 @@ pub fn join(channel: String) {
     let slack = "https://trisasnava.slack.com/join/shared_invite/enQtODg1NjI0NTc1NzAzLTBjYTM1YjQxZWZkMTExYTBlNTcxNjQzYTc0MjRmNDNjMmIxZmMwZjM5ODFkZWExNjJkNWMwZWRjOGJlODdiM2Q";
     let github = "https://github.com/trisasnava";
     let website = "https://trisasnava.org";
+    let docs = "https://trisasnava.org/koifish";
 
     if channel.as_str() == "slack" {
         if webbrowser::open(slack).is_ok() {
@@ -15,6 +16,10 @@ pub fn join(channel: String) {
         };
     } else if channel.as_str() == "website" {
         if webbrowser::open(website).is_ok() {
+            println!("Open website successful !");
+        };
+    } else if channel.as_str() == "docs" {
+        if webbrowser::open(docs).is_ok() {
             println!("Open website successful !");
         };
     } else {

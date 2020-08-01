@@ -25,3 +25,26 @@ SUBCOMMANDS:
     user        Get GitHub user info
     web         Start a web Koifish in local with your port
 ```
+
+## login
+
+When you execute this command, koi will open your default browser. 
+And it will oauth your GitHub token to save `$HOME/.koi` file.
+  
+```shell script
+koifish login 
+``` 
+
+When login successfully,it will redirect to this page.  
+
+![](https://user-images.githubusercontent.com/25944814/89096743-62784780-d40b-11ea-8a50-8ec50e1ea550.png)
+
+## open
+
+When you execute this command, koi will open this channel 
+using your default browser 
+
+```shell script
+koifish open 
+koifish open github | website | docs | slack(default)  
+``` 

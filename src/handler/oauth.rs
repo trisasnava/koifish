@@ -1,16 +1,17 @@
+extern crate dirs;
+
 use std::fs;
-use std::fs::File;
 use std::io::{BufRead, BufReader, BufWriter, Read, Write};
 use std::net::{TcpListener, TcpStream};
 use std::path::{Path, PathBuf};
-use std::{env, io, thread};
 
-use oauth2::url::Url;
 use reqwest;
+use reqwest::Url;
 use serde_json;
 use toml;
 use webbrowser;
 
+use crate::handler::login;
 use crate::model::oauth::OauthToken;
 
 pub fn oauth() {
@@ -51,7 +52,6 @@ pub fn oauth() {
 #[tokio::main]
 async fn oauth_save_token(code: String) -> Result<(), reqwest::Error> {
     let oauth_url = "https://koifish.trisasnava.org/oauth";
-    let mut token;
 
     let res: serde_json::Value = reqwest::Client::new()
         .post(oauth_url)
@@ -61,14 +61,21 @@ async fn oauth_save_token(code: String) -> Result<(), reqwest::Error> {
         .json()
         .await?;
 
-    token = OauthToken::new(res["token"].to_string());
-    println!("{:?}", token.value());
+    sava_token(OauthToken::new(res["token"].to_string()));
+    login::echo_username(res["token"].to_string().replace("\"", "").as_str());
 
-    let toml_token = toml::to_string(&token).unwrap();
-    println!("{:#?}", toml_token);
-
-    //TODO Save token to user profile
     Ok(())
+}
+
+fn sava_token(token: OauthToken) {
+    let token_contents = format!("[oauth_token]\ntoken={}", token.value().as_str());
+    match dirs::home_dir() {
+        Some(home) => {
+            let config = Path::new(home.as_path()).join(".koi");
+            fs::write(config, token_contents).expect("Could not write to file!");
+        }
+        _ => {}
+    }
 }
 
 fn response(mut stream: TcpStream) {
@@ -89,11 +96,11 @@ fn response(mut stream: TcpStream) {
     0 15px;font-size: 14px;border-radius: 4px;color: rgba(0, 0, 0, 0.65);background-color: #fff;border-color: #d9d9d9;}\
     .ant-btn-red {color: #fff;background-color: #000;border-color: #FF5A44;text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);\
     -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);}</style></head><body>\
-    <script language=\"javascript\">function custom_close(){    window.close();}</script><div id=\"wrapper\">\
-    <h1>Login successfully!</h1><div class=\"inline\"><input class=\"ant-btn ant-btn-red\" type=\"button\" value=\"\
-    < Back to CLI\" onClick=\"custom_close()\"/></div><div style=\" float:right;\"><input class=\"ant-btn ant-btn-red\" \
-    type=\"button\" value=\"> How to use\"onClick=\"window.location.href='https://trisasnava.org/koifish'\"/></div></div>\
-    </body></html>";
+    <script language=\"javascript\">function custom_close(){    window.close();}</script><div id=\"wrapper\">
+    <h1>&#128032;</h1><h1>Login successfully!</h1><div class=\"inline\"><input class=\"\
+    ant-btn ant-btn-red\" type=\"button\" value=\"< Back to CLI\" onClick=\"custom_close()\"/></div><div style=\" \
+    float:right;\"><input class=\"ant-btn ant-btn-red\" type=\"button\" value=\"How to use >\"onClick=\"\
+    window.location.href='https://trisasnava.org/koifish'\"/></div></div></body></html>";
     let response = format!("HTTP/1.1 200 OK\r\n\r\n{}", index_html);
     stream.write(response.as_bytes()).unwrap();
     stream.flush().unwrap();

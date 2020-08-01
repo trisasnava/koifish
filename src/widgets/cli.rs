@@ -1,7 +1,15 @@
+use std::fs::File;
+use std::io::Read;
+use std::path::Path;
+
 use structopt::StructOpt;
+use toml;
 
 use crate::handler::join;
+use crate::handler::login;
 use crate::handler::oauth;
+use crate::model::conf::Config;
+use crate::model::oauth::OauthToken;
 
 #[derive(Debug, PartialEq, StructOpt)]
 #[structopt(name = "
@@ -59,7 +67,7 @@ pub enum Koifish {
 impl Koifish {
     /// Match Options
     pub fn run() {
-        Self::print_matches();
+        // Self::print_matches();
         match Koifish::from_args() {
             Koifish::Login => {
                 Self::login();
@@ -77,8 +85,36 @@ impl Koifish {
     }
 
     // login to GitHub
-    fn login() {
-        oauth::oauth();
+    fn login() -> std::io::Result<()> {
+        match dirs::home_dir() {
+            Some(home) => {
+                let config = Path::new(home.as_path()).join(".koi");
+                match config.exists() {
+                    false => {
+                        oauth::oauth();
+                    }
+                    true => {
+                        let mut file = File::open(config.as_path())?;
+                        let mut contents = String::new();
+                        file.read_to_string(&mut contents)?;
+
+                        let config: Config = toml::from_str(contents.as_str()).unwrap();
+
+                        match config {
+                            token => {
+                                if token.get_token().len() > 0 {
+                                    login::echo_username(token.get_token());
+                                } else {
+                                    oauth::oauth();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            _ => {}
+        }
+        Ok(())
     }
 
     // join slack channel

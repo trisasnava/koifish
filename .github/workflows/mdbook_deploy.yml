@@ -5,7 +5,7 @@ on:
     branches: [master]
 
 jobs:
-  build page:
+  deploy_doc:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2

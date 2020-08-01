@@ -38,7 +38,7 @@ pub fn oauth() {
 
                     let (_, value) = code_pair;
                     oauth_save_token(value.to_string());
-                    handle_client(stream);
+                    response(stream);
                     break;
                 }
                 Err(e) => {
@@ -69,7 +69,7 @@ async fn oauth_save_token(code: String) -> Result<(), reqwest::Error> {
     Ok(())
 }
 
-fn handle_client(mut stream: TcpStream) {
+fn response(mut stream: TcpStream) {
     let index_html = "<head><meta name=\"viewport\" content=\"initial-scale=1, maximum-scale=1, user-scalable=no\"/>
     <title>Login</title> <style type=\"text/css\">html, body {overflow: hidden;margin: 0;background: #000}
     body {font-family: 'Open Sans', 'Helvetica Neue', 'Hiragino Sans GB', 'LiHei Pro', Arial, sans-serif;color: #333}

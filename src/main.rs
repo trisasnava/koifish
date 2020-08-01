@@ -2,9 +2,9 @@ use app::TUI;
 use widgets::cli::Koifish;
 
 mod app;
-mod widgets;
-mod model;
 mod handler;
+mod model;
+mod widgets;
 
 #[paw::main]
 fn main(args: paw::Args) {

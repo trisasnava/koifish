@@ -2,8 +2,8 @@ use std::io;
 
 use tui::backend::CrosstermBackend;
 use tui::layout::{Constraint, Direction, Layout};
-use tui::Terminal;
 use tui::widgets::{Block, Borders};
+use tui::Terminal;
 
 pub struct Home {
     search: Layout,
@@ -31,7 +31,7 @@ impl Home {
                         Constraint::Length(2),
                         Constraint::Min(5),
                     ]
-                        .as_ref(),
+                    .as_ref(),
                 )
                 .split(f.size());
 
@@ -53,7 +53,9 @@ impl Home {
             let block = Block::default().title("Issues Info").borders(Borders::ALL);
             f.render_widget(block, chunks[2]);
 
-            let block = Block::default().title("Assigned Info").borders(Borders::ALL);
+            let block = Block::default()
+                .title("Assigned Info")
+                .borders(Borders::ALL);
             f.render_widget(block, chunks[3]);
         })
     }

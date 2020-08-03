@@ -11,9 +11,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Build
+      - name: Package
         run: cargo package --verbose
       - name: Run tests
         run: cargo test --verbose
       - name: Publish to crates-io
-        run:  cargo publish --verbose
+        run:  cargo publish --token  ${{secrets.PUBLISH_KEY}} --verbose

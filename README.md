@@ -4,6 +4,7 @@
 
 [![Rust](https://github.com/trisasnava/koifish/workflows/Rust/badge.svg)](https://github.com/trisasnava/koifish/actions?query=workflow:Rust)
 [![Mdbook](https://github.com/trisasnava/koifish/workflows/Mdbook/badge.svg)](https://github.com/trisasnava/koifish/actions?query=workflow:Mdbook)
+[![Gitpod](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/trisasnava/koifish)
 
 I am a Fish, name is Koifish.
 
@@ -15,7 +16,13 @@ I am a Fish, name is Koifish.
 
 [Contributor License Agreement](docs/src/contributing/cla.md)
 
-# Code contribution
+# Contribution
+
+Write code online with Gitpod.
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/trisasnava/koifish)
+
+## Code contribution
 
 1. Install rust 
 
@@ -37,7 +44,7 @@ I am a Fish, name is Koifish.
 
 6. Submit a pull request(PR) 
 
-# Document contribution
+## Document contribution
 
 1.  Install mdbook `cargo install mdbook` 
 

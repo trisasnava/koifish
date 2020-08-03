@@ -1,17 +1,19 @@
 name: Rust
 
 on:
-  pull_request:
-    branches: [ master ]
+  release:
+    types:
+      - created
 
 jobs:
-  build:
-
+  rust_publish:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
       - name: Build
-        run: cargo build --verbose
+        run: cargo package --verbose
       - name: Run tests
         run: cargo test --verbose
+      - name: Publish to crates-io
+        run:  cargo publish --verbose

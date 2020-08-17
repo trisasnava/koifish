@@ -7,7 +7,7 @@ pub fn echo_username(token: &str) {
     let client = Github::new(token).unwrap();
     let me = client.get().user().execute::<Value>();
     match me {
-        Ok((headers, status, json)) => {
+        Ok((_, _, json)) => {
             if let Some(json) = json {
                 println!("Hi,{},I am {}.", json["name"], Emoji("🐠 ", "Koi"));
             }
@@ -62,3 +62,5 @@ pub fn meet() {
         println!("Open Meet failure !");
     }
 }
+
+pub fn upgrade() {}

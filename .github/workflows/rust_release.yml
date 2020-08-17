@@ -1,0 +1,35 @@
+name: Release
+
+on:
+  release:
+    types:
+      - created
+
+jobs:
+  publish:
+    name: Publish for ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            artifact_name: koi
+            asset_name: koi-linux-amd64
+          - os: windows-latest
+            artifact_name: koi.exe
+            asset_name: koi-windows-amd64
+          - os: macos-latest
+            artifact_name: koi
+            asset_name: koi-macos-amd64
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        run: cargo build --release --locked
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token:  ${{secrets.DEPLOY_KEY}}
+          file: target/release/${{ matrix.artifact_name }}
+          asset_name: ${{ matrix.asset_name }}
+          tag: ${{ github.ref }}

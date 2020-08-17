@@ -79,6 +79,9 @@ impl Koifish {
             Koifish::Meet => {
                 Self::meet();
             }
+            Koifish::Upgrade => {
+                Self::upgrade();
+            }
             _ => {}
         }
     }
@@ -133,6 +136,11 @@ impl Koifish {
 
     // Start a meeting
     fn meet() {
-        cli::meet()
+        cli::meet();
+    }
+
+    // Upgrade koifish
+    fn upgrade() {
+        cli::upgrade();
     }
 }

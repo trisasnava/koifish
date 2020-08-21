@@ -93,7 +93,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="index.html">Introduction</a></li><li class="chapter-item expanded "><a href="getting-started/index.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="getting-started/installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li></ol></li><li class="chapter-item expanded "><a href="contributing/index.html"><strong aria-hidden="true">2.</strong> Contributing</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="contributing/CODE_OF_CONDUCT.html"><strong aria-hidden="true">2.1.</strong> Code of Conduct</a></li><li class="chapter-item expanded "><a href="contributing/cla.html"><strong aria-hidden="true">2.2.</strong> Sign the CLA</a></li><li class="chapter-item expanded "><a href="contributing/code.html"><strong aria-hidden="true">2.3.</strong> Code contribution</a></li><li class="chapter-item expanded "><a href="contributing/document.html"><strong aria-hidden="true">2.4.</strong> Document contribution</a></li></ol></li><li class="chapter-item expanded "><a href="guide/index.html"><strong aria-hidden="true">3.</strong> Koifish Guide</a></li><li class="chapter-item expanded "><a href="reference/index.html"><strong aria-hidden="true">4.</strong> Koifish Reference</a></li><li class="chapter-item expanded "><a href="commands/index.html"><strong aria-hidden="true">5.</strong> Koifish Commands</a></li><li class="chapter-item expanded "><a href="roadmap/index.html"><strong aria-hidden="true">6.</strong> Roadmap</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">7.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="LICENSE.html"><strong aria-hidden="true">8.</strong> LICENSE</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="index.html">Introduction</a></li><li class="chapter-item expanded "><a href="getting-started/index.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="getting-started/installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="getting-started/how_to_use.html"><strong aria-hidden="true">1.2.</strong> How to use</a></li></ol></li><li class="chapter-item expanded "><a href="contribution/index.html"><strong aria-hidden="true">2.</strong> Contribution</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="contribution/CODE_OF_CONDUCT.html"><strong aria-hidden="true">2.1.</strong> Code of Conduct</a></li><li class="chapter-item expanded "><a href="contribution/CLA.html"><strong aria-hidden="true">2.2.</strong> Sign the CLA</a></li><li class="chapter-item expanded "><a href="contribution/codes.html"><strong aria-hidden="true">2.3.</strong> Codes contribution</a></li><li class="chapter-item expanded "><a href="contribution/docs.html"><strong aria-hidden="true">2.4.</strong> Docs contribution</a></li></ol></li><li class="chapter-item expanded "><a href="roadmap/index.html"><strong aria-hidden="true">3.</strong> Roadmap</a></li><li class="chapter-item expanded "><a href="FAQ.html"><strong aria-hidden="true">4.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="LICENSE.html"><strong aria-hidden="true">5.</strong> LICENSE</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -163,8 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#introduction" id="introduction">Introduction</a></h1>
-<h1><a class="header" href="#koifish" id="koifish">Koifish</a></h1>
+                        <h1><a class="header" href="#koifish" id="koifish">Koifish</a></h1>
 <p><img src="./favicon.png" alt="Logo" /> </p>
 <p><a href="https://github.com/trisasnava/koifish/actions?query=workflow:Build"><img src="https://github.com/trisasnava/koifish/workflows/Build/badge.svg" alt="Build" /></a>
 <a href="https://github.com/trisasnava/koifish/actions?query=workflow:Release"><img src="https://github.com/trisasnava/koifish/workflows/Release/badge.svg" alt="Release" /></a>
@@ -174,6 +173,56 @@
 <p>I am a Fish, name is Koifish.</p>
 <h1><a class="header" href="#getting-started" id="getting-started">Getting Started</a></h1>
 <h1><a class="header" href="#installation" id="installation">Installation</a></h1>
+<h2><a class="header" href="#use-cargo" id="use-cargo">Use cargo</a></h2>
+<pre><code>cargo install koifish
+</code></pre>
+<h1><a class="header" href="#how-to-use" id="how-to-use">How to use</a></h1>
+<h1><a class="header" href="#help" id="help">help</a></h1>
+<pre><code class="language-shellscript">&gt; koi -h
+
+    █▄▀ █▀█ ░ █▀▀ ░ █▀ █░█
+    █░█ █▄█ █ █▀▀ █ ▄█ █▀█   0.0.1
+
+USAGE:
+    koi &lt;SUBCOMMAND&gt;
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+SUBCOMMANDS:
+    help       Prints this message or the help of the given subcommand(s)
+    join       Join our slack channel
+    login      Verify login via GitHub Oauth
+    meet       Start a meeting with https://meet.jit.si/koi
+    open       Open koifish github|website|docs
+    upgrade    Upgrade tool for Koifish
+</code></pre>
+<h2><a class="header" href="#login" id="login">login</a></h2>
+<p>When you execute this command, koi will open your default browser. 
+And it will oauth your GitHub token to save <code>$HOME/.koi</code> file.</p>
+<pre><code class="language-shellscript">koi login 
+</code></pre>
+<p>When login successfully,it will redirect to this page.</p>
+<p><img src="https://user-images.githubusercontent.com/25944814/89096743-62784780-d40b-11ea-8a50-8ec50e1ea550.png" alt="" /></p>
+<h2><a class="header" href="#open" id="open">open</a></h2>
+<p>When you execute this command, koi will open this channel 
+using your default browser </p>
+<pre><code class="language-shellscript">koi open 
+koi open github | website | docs
+</code></pre>
+<h2><a class="header" href="#join" id="join">join</a></h2>
+<p>Join Koifish slack channel</p>
+<pre><code class="language-shellscript">koi join
+</code></pre>
+<h2><a class="header" href="#meet" id="meet">meet</a></h2>
+<p>Start a meeting with https://meet.jit.si/koi</p>
+<pre><code class="language-shellscript">koi meet 
+</code></pre>
+<h2><a class="header" href="#upgrade" id="upgrade">upgrade</a></h2>
+<p>Upgrade Koifish to latest version</p>
+<pre><code class="language-shellscript">koi upgrade
+</code></pre>
 <h1><a class="header" href="#contributing" id="contributing">Contributing</a></h1>
 <h1><a class="header" href="#contributor-covenant-code-of-conduct" id="contributor-covenant-code-of-conduct">Contributor Covenant Code of Conduct</a></h1>
 <h2><a class="header" href="#our-pledge" id="our-pledge">Our Pledge</a></h2>
@@ -283,112 +332,77 @@ except as explicitly described in this agreement, you have provided the
 Contribution on an &quot;as is&quot; basis, without warranties as to merchantability, or
 fitness for a particular purpose.</p>
 <p><a href="https://cla-assistant.io/trisasnava/koifish">Please sign in with GitHub to agree</a></p>
-<h1><a class="header" href="#code-contribution" id="code-contribution">Code contribution</a></h1>
+<h1><a class="header" href="#codes-contribution" id="codes-contribution">Codes contribution</a></h1>
+<p><a href="https://gitpod.io/#https://github.com/trisasnava/koifish"><img src="https://gitpod.io/button/open-in-gitpod.svg" alt="Open in Gitpod" /></a></p>
 <ol>
-<li>
-<p>Install rust </p>
-</li>
-<li>
-<p>Install cargo</p>
-</li>
-<li>
-<p><code>git clone git@github.com:trisasnava/koifish.git</code> </p>
-</li>
-<li>
-<p>Write your code under <code>src|test</code></p>
-</li>
+<li>Install rust-lang environment</li>
+</ol>
+<pre><code class="language-shellscript">curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+</code></pre>
+<ol start="2">
+<li>Clone source code from GitHub</li>
+</ol>
+<pre><code class="language-shellscript">git clone git@github.com:trisasnava/koifish.git
+</code></pre>
+<ol start="3">
+<li>Write your rust code under <code>src</code></li>
 </ol>
 <pre><code class="language-tree">    ├─src
     │  ├─handler
     │  ├─model
+    |  ├─static
     │  └─widgets
     └─test
 </code></pre>
 <ol start="5">
 <li>
-<p>Read <a href="contributing/CODE_OF_CONDUCT.html">contributor covenant code of conduct</a> and <a href="https://cla-assistant.io/trisasnava/koifish">sign the CLA</a></p>
+<p>Read <a href="contribution/CODE_OF_CONDUCT.html">contributor covenant code of conduct</a> and <a href="https://cla-assistant.io/trisasnava/koifish">sign the CLA</a></p>
 </li>
 <li>
 <p>Submit a pull request(PR)</p>
 </li>
 </ol>
-<h1><a class="header" href="#write-code-online-with-gitpod" id="write-code-online-with-gitpod">Write code online with Gitpod.</a></h1>
+<h1><a class="header" href="#docs-contribution" id="docs-contribution">Docs contribution</a></h1>
 <p><a href="https://gitpod.io/#https://github.com/trisasnava/koifish"><img src="https://gitpod.io/button/open-in-gitpod.svg" alt="Open in Gitpod" /></a></p>
-<h1><a class="header" href="#document-contribution" id="document-contribution">Document contribution</a></h1>
 <ol>
-<li>
-<p>Install mdbook <code>cargo install mdbook</code> </p>
-</li>
-<li>
-<p><code>git clone git@github.com:trisasnava/koifish.git</code> </p>
-</li>
-<li>
-<p>Write Markdown docs under the <code>docs/src</code></p>
-</li>
+<li>Install rust-lang environment</li>
+</ol>
+<pre><code class="language-shellscript">curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+</code></pre>
+<ol start="2">
+<li>Install Mdbook </li>
+</ol>
+<pre><code class="language-shellscript">cargo install mdbook
+</code></pre>
+<ol start="3">
+<li>Clone source code from GitHub</li>
+</ol>
+<pre><code class="language-shellscript">git clone git@github.com:trisasnava/koifish.git
+</code></pre>
+<ol start="4">
+<li>Write docs under the <code>docs/src</code> using Markdown</li>
 </ol>
 <pre><code class="language-tree">    ├─docs
     │  ├─src
     │  │  ├─commands
-    │  │  ├─contributing
+    │  │  ├─contribution
     │  │  ├─getting-started
     │  │  ├─guide
     │  │  ├─reference
     │  │  └─roadmap
     │  └─theme
 </code></pre>
-<ol start="4">
+<ol start="5">
 <li>
-<p>Read <a href="contributing/CODE_OF_CONDUCT.html">contributor covenant code of conduct</a> and <a href="https://cla-assistant.io/trisasnava/koifish">sign the CLA</a></p>
+<p>Read <a href="contribution/CODE_OF_CONDUCT.html">contributor covenant code of conduct</a> and <a href="https://cla-assistant.io/trisasnava/koifish">sign the CLA</a></p>
 </li>
 <li>
-<p>Run <code>mdbook serve</code> and open your browser <a href="http://localhost:3000"><code>http://localhost:3000</code></a> </p>
+<p>Run <code>mdbook serve</code> and to preview docs</p>
 </li>
 <li>
 <p>Submit a pull request(PR)</p>
 </li>
 </ol>
-<h1><a class="header" href="#write-docs-online-with-gitpod" id="write-docs-online-with-gitpod">Write docs online with Gitpod.</a></h1>
-<p><a href="https://gitpod.io/#https://github.com/trisasnava/koifish"><img src="https://gitpod.io/button/open-in-gitpod.svg" alt="Open in Gitpod" /></a></p>
-<h1><a class="header" href="#koifish-guide" id="koifish-guide">Koifish Guide</a></h1>
-<h1><a class="header" href="#koifish-reference" id="koifish-reference">Koifish Reference</a></h1>
-<h1><a class="header" href="#koifish-commands" id="koifish-commands">Koifish Commands</a></h1>
-<pre><code class="language-shellscript">&gt; koifish -h
-
-    █▄▀ █▀█ ░ █▀▀ ░ █▀ █░█
-    █░█ █▄█ █ █▀▀ █ ▄█ █▀█   0.0.1
-
-USAGE:
-    koifish &lt;SUBCOMMAND&gt;
-
-FLAGS:
-    -h, --help       Prints help information
-    -V, --version    Prints version information
-
-SUBCOMMANDS:
-    help        Prints this message or the help of the given subcommand(s)
-    issues      Get GitHub issues info in your repo
-    join        Join our slack | github | website
-    login       Login to GitHub
-    online      Run a online Koifish in https://webassembly.sh
-    prs         Get GitHub prs info for your repo
-    repo        Get GitHub repo info
-    trending    Get GitHub trending repo info
-    user        Get GitHub user info
-    web         Start a web Koifish in local with your port
-</code></pre>
-<h2><a class="header" href="#login" id="login">login</a></h2>
-<p>When you execute this command, koi will open your default browser. 
-And it will oauth your GitHub token to save <code>$HOME/.koi</code> file.</p>
-<pre><code class="language-shellscript">koifish login 
-</code></pre>
-<p>When login successfully,it will redirect to this page.</p>
-<p><img src="https://user-images.githubusercontent.com/25944814/89096743-62784780-d40b-11ea-8a50-8ec50e1ea550.png" alt="" /></p>
-<h2><a class="header" href="#open" id="open">open</a></h2>
-<p>When you execute this command, koi will open this channel 
-using your default browser </p>
-<pre><code class="language-shellscript">koifish open 
-koifish open github | website | docs | slack(default)  
-</code></pre>
 <h1><a class="header" href="#roadmap" id="roadmap">Roadmap</a></h1>
 <p><a href="https://github.com/trisasnava/koifish/projects/2#column-8978297">Roadmap</a></p>
 <h1><a class="header" href="#faq" id="faq">FAQ</a></h1>

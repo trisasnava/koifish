@@ -1,5 +1,3 @@
-# Introduction
-
 # Koifish
 
 ![Logo](./favicon.png) 

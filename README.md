@@ -12,70 +12,22 @@ I am a Fish, name is Koifish.
 
 # Code of Conduct
   
-[Contributor Covenant Code of Conduct](docs/src/contributing/CODE_OF_CONDUCT.md) 
+[Contributor Covenant Code of Conduct](docs/src/contribution/CODE_OF_CONDUCT.md) 
 
 # CLA
 
-[Contributor License Agreement](docs/src/contributing/cla.md)
+[Contributor License Agreement](docs/src/contribution/CLA.md)
 
-# Contribution
-
-Write code online with Gitpod.
+# Contribution 
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/trisasnava/koifish)
 
-## Code contribution
+- [Codes](docs/src/contribution/codes.md)
 
-1. Install rust 
+- [Docs](docs/src/contribution/docs.md)
 
-2. Install cargo
+# [FAQ](docs/src/FAQ.md)
 
-3. `git clone git@github.com:trisasnava/koifish.git` 
+# LICENSE 
 
-4. Write your code under `src|test`
-
-```tree
-    ├─src
-    │  ├─handler
-    │  ├─model
-    │  └─widgets
-    └─test
-```
-
-5. Read [contributor covenant code of conduct](CODE_OF_CONDUCT.md) and [sign the CLA](https://cla-assistant.io/trisasnava/koifish)
-
-6. Submit a pull request(PR) 
-
-## Document contribution
-
-1.  Install mdbook `cargo install mdbook` 
-
-2. `git clone git@github.com:trisasnava/koifish.git` 
- 
-3.  Write Markdown docs under the `docs/src`
-
-```tree
-    ├─docs
-    │  ├─src
-    │  │  ├─commands
-    │  │  ├─contributing
-    │  │  ├─getting-started
-    │  │  ├─guide
-    │  │  ├─reference
-    │  │  └─roadmap
-    │  └─theme
-```
-
-4. Read [contributor covenant code of conduct](CODE_OF_CONDUCT.md) and [sign the CLA](https://cla-assistant.io/trisasnava/koifish)
-
-5. Run `mdbook serve` and open your browser [`http://localhost:3000`](http://localhost:3000) 
-
-6. Submit a pull request(PR)
-
-# FAQ
-
-[FAQ](docs/src/faq.md)
-
-# LICENSE
-
-[Apache2.0](LICENSE)
+[Apache 2.0](LICENSE)

@@ -4,21 +4,16 @@
 
 * [Getting Started](getting-started/index.md)
     * [Installation](getting-started/installation.md)
+    * [How to use](getting-started/how_to_use.md)
     
-* [Contributing](contributing/index.md)
-    * [Code of Conduct](contributing/CODE_OF_CONDUCT.md)
-    * [Sign the CLA](contributing/cla.md)
-    * [Code contribution](contributing/code.md)
-    * [Document contribution](contributing/document.md)
-
-* [Koifish Guide](guide/index.md)
-
-* [Koifish Reference](reference/index.md)
-
-* [Koifish Commands](commands/index.md)
+* [Contribution](contribution/index.md)
+    * [Code of Conduct](contribution/CODE_OF_CONDUCT.md)
+    * [Sign the CLA](contribution/CLA.md)
+    * [Codes contribution](contribution/codes.md)
+    * [Docs contribution](contribution/docs.md)
 
 * [Roadmap](roadmap/index.md)
 
-* [FAQ](faq.md)
+* [FAQ](FAQ.md)
 
 * [LICENSE](LICENSE)

@@ -1,29 +1,27 @@
-# Koifish Commands
+# How to use
+
+# help
 
 ```shell script
-> koifish -h
+> koi -h
 
     █▄▀ █▀█ ░ █▀▀ ░ █▀ █░█
     █░█ █▄█ █ █▀▀ █ ▄█ █▀█   0.0.1
 
 USAGE:
-    koifish <SUBCOMMAND>
+    koi <SUBCOMMAND>
 
 FLAGS:
     -h, --help       Prints help information
     -V, --version    Prints version information
 
 SUBCOMMANDS:
-    help        Prints this message or the help of the given subcommand(s)
-    issues      Get GitHub issues info in your repo
-    join        Join our slack | github | website
-    login       Login to GitHub
-    online      Run a online Koifish in https://webassembly.sh
-    prs         Get GitHub prs info for your repo
-    repo        Get GitHub repo info
-    trending    Get GitHub trending repo info
-    user        Get GitHub user info
-    web         Start a web Koifish in local with your port
+    help       Prints this message or the help of the given subcommand(s)
+    join       Join our slack channel
+    login      Verify login via GitHub Oauth
+    meet       Start a meeting with https://meet.jit.si/koi
+    open       Open koifish github|website|docs
+    upgrade    Upgrade tool for Koifish
 ```
 
 ## login
@@ -32,7 +30,7 @@ When you execute this command, koi will open your default browser.
 And it will oauth your GitHub token to save `$HOME/.koi` file.
   
 ```shell script
-koifish login 
+koi login 
 ``` 
 
 When login successfully,it will redirect to this page.  
@@ -45,6 +43,30 @@ When you execute this command, koi will open this channel
 using your default browser 
 
 ```shell script
-koifish open 
-koifish open github | website | docs | slack(default)  
+koi open 
+koi open github | website | docs
 ``` 
+
+## join
+
+Join Koifish slack channel
+
+```shell script
+koi join
+```
+
+## meet
+
+Start a meeting with https://meet.jit.si/koi
+
+```shell script
+koi meet 
+```
+
+## upgrade
+
+Upgrade Koifish to latest version
+
+```shell script
+koi upgrade
+```

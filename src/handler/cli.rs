@@ -25,7 +25,7 @@ pub fn echo_username(token: &str) {
             }
         }
         Err(e) => {
-            println!("Login error, please retry - [{}]", e);
+            println!("Login error, retrying - [{}]", e);
             echo_username(token);
         }
     }
@@ -115,7 +115,8 @@ pub fn upgrade(token: &str) {
             }
         }
         Err(e) => {
-            println!("Upgrade error, please retry - [{}]", e);
+            println!("Upgrade error, retrying - [{}]", e);
+            upgrade(token);
         }
     }
 }

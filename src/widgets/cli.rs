@@ -8,13 +8,12 @@ use toml;
 use crate::handler::cli;
 use crate::handler::oauth;
 use crate::model::conf::Config;
-use crate::model::oauth::OauthToken;
 
 #[derive(Debug, PartialEq, StructOpt)]
 #[structopt(name = "
     █▄▀ █▀█ ░ █▀▀ ░ █▀ █░█
     █░█ █▄█ █ █▀▀ █ ▄█ █▀█  ")]
-pub enum Koifish {
+pub enum Koi {
     /// Verify login via GitHub Oauth
     Login,
     /// Join our slack channel
@@ -62,24 +61,24 @@ pub enum Koifish {
     // },
 }
 
-impl Koifish {
+impl Koi {
     /// Match Options
     pub fn run() {
         // Self::print_matches();
-        match Koifish::from_args() {
-            Koifish::Login => {
+        match Koi::from_args() {
+            Self::Login => {
                 Self::login();
             }
-            Koifish::Join => {
+            Self::Join => {
                 Self::join();
             }
-            Koifish::Open { channel } => {
+            Self::Open { channel } => {
                 Self::open(channel);
             }
-            Koifish::Meet => {
+            Self::Meet => {
                 Self::meet();
             }
-            Koifish::Upgrade => {
+            Self::Upgrade => {
                 Self::upgrade();
             }
             _ => {}
@@ -88,10 +87,10 @@ impl Koifish {
 
     /// print matches for test
     fn print_matches() {
-        println!("{:#?}", Koifish::from_args());
+        println!("{:#?}", Self::from_args());
     }
 
-    // login to GitHub
+    /// login to GitHub
     fn login() -> std::io::Result<()> {
         match dirs::home_dir() {
             Some(home) => {
@@ -124,23 +123,62 @@ impl Koifish {
         Ok(())
     }
 
-    // join slack channel
+    /// join slack channel
     fn join() {
         cli::join();
     }
 
-    // Open Koifish site
+    /// Open Koifish site
     fn open(channel: String) {
         cli::open(channel);
     }
 
-    // Start a meeting
+    /// Start a meeting
     fn meet() {
         cli::meet();
     }
 
-    // Upgrade koifish
-    fn upgrade() {
-        cli::upgrade();
+    /// Upgrade koifish
+    fn upgrade() -> std::io::Result<()> {
+        match dirs::home_dir() {
+            Some(home) => {
+                let config = Path::new(home.as_path()).join(".koi");
+                match config.exists() {
+                    false => {
+                        oauth::oauth();
+                        let mut file = File::open(config.as_path())?;
+                        let mut contents = String::new();
+                        file.read_to_string(&mut contents)?;
+
+                        let config: Config = toml::from_str(contents.as_str()).unwrap();
+
+                        match config {
+                            token => {
+                                if token.get_token().len() > 0 {
+                                    cli::upgrade(token.get_token());
+                                }
+                            }
+                        }
+                    }
+                    true => {
+                        let mut file = File::open(config.as_path())?;
+                        let mut contents = String::new();
+                        file.read_to_string(&mut contents)?;
+
+                        let config: Config = toml::from_str(contents.as_str()).unwrap();
+
+                        match config {
+                            token => {
+                                if token.get_token().len() > 0 {
+                                    cli::upgrade(token.get_token());
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            _ => {}
+        }
+        Ok(())
     }
 }

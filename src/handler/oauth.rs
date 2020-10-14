@@ -13,15 +13,16 @@ use webbrowser;
 use crate::handler::cli;
 use crate::model::oauth::OauthToken;
 
+/// GitHub OAuth for koifish
 pub fn oauth() {
-    let login_url = "https://koifish.trisasnava.org/login";
+    let login_url = "https://koifish.trisasnava.org";
     let address = "localhost:3690";
 
     if webbrowser::open(login_url).is_ok() {
         let listener = TcpListener::bind(address).unwrap();
         for stream in listener.incoming() {
             match stream {
-                Ok(mut stream) => {
+                Ok(stream) => {
                     let mut reader = BufReader::new(&stream);
                     let mut request_line = String::new();
                     reader.read_line(&mut request_line).unwrap();
@@ -42,12 +43,13 @@ pub fn oauth() {
                     response(stream);
                     break;
                 }
-                Err(_e) => println!("Loin failure!"),
+                Err(_e) => println!("Verification failed, please try again."),
             }
         }
     }
 }
 
+/// Get Github token and save token to toml file
 #[tokio::main]
 async fn oauth_save_token(code: String) -> Result<(), reqwest::Error> {
     let oauth_url = "https://koifish.trisasnava.org/oauth";
@@ -60,14 +62,19 @@ async fn oauth_save_token(code: String) -> Result<(), reqwest::Error> {
         .json()
         .await?;
 
-    sava_token(OauthToken::new(res["token"].to_string()));
-    cli::echo_username(res["token"].to_string().replace("\"", "").as_str());
-
+    match res["token"].as_str() {
+        Some(token) => {
+            sava_token(OauthToken::new(token));
+            cli::echo_username(res["token"].to_string().replace("\"", "").as_str());
+        }
+        None => println!("Token acquisition failed, please try again.")
+    }
     Ok(())
 }
 
+/// Save GitHub token to toml file
 fn sava_token(token: OauthToken) {
-    let token_contents = format!("[oauth_token]\ntoken={}", token.value().as_str());
+    let token_contents = format!("[oauth_token]\ntoken=\"{}\"", token.value().to_string());
     match dirs::home_dir() {
         Some(home) => {
             let config = Path::new(home.as_path()).join(".koi");
@@ -77,6 +84,7 @@ fn sava_token(token: OauthToken) {
     }
 }
 
+/// Response with static file
 fn response(mut stream: TcpStream) {
     let index_html = "<!DOCTYPE html><html><head><meta name=\"viewport\" content=\"initial-scale=1, maximum-scale=1, \
     user-scalable=no\"/><title>Login</title><style type=\"text/css\">html, body {overflow: hidden; margin: 0;background: #000}\
@@ -96,7 +104,7 @@ fn response(mut stream: TcpStream) {
     .ant-btn-red {color: #fff;background-color: #000;border-color: #FF5A44;text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);\
     -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);}</style></head><body>\
     <script language=\"javascript\">function custom_close(){    window.close();}</script><div id=\"wrapper\">
-    <h1>&#128032;</h1><h1>Login successfully!</h1><div class=\"inline\"><input class=\"\
+    <h1>&#128032;</h1><h1>Login successful!</h1><div class=\"inline\"><input class=\"\
     ant-btn ant-btn-red\" type=\"button\" value=\"< Back to CLI\" onClick=\"custom_close()\"/></div><div style=\" \
     float:right;\"><input class=\"ant-btn ant-btn-red\" type=\"button\" value=\"How to use >\"onClick=\"\
     window.location.href='https://trisasnava.org/koifish'\"/></div></div></body></html>";

@@ -2,13 +2,15 @@ use super::widgets::details::Details;
 use super::widgets::home::Home;
 use super::widgets::search::Search;
 
-pub struct TUI {
+/// Koifish TUI
+pub struct Koifish {
     home: Home,
     search: Search,
     details: Details,
 }
 
-impl TUI {
+/// Koifish TUI implement
+impl Koifish {
     pub fn run() {
         Details::draw();
         Home::draw();

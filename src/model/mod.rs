@@ -1,3 +1,3 @@
 pub mod conf;
 pub mod oauth;
-pub mod user;
+pub mod release;

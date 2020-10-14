@@ -11,7 +11,7 @@ pub struct Config {
 impl Config {
     pub fn get_token(&self) -> &str {
         match &self.oauth_token {
-            Some(token) => token.value().as_str(),
+            Some(token) => token.value(),
             None => "",
         }
     }

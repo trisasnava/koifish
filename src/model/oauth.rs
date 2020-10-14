@@ -7,11 +7,13 @@ pub struct OauthToken {
 }
 
 impl OauthToken {
-    pub fn new(str: String) -> Self {
-        Self { token: str }
+    pub fn new(str: &str) -> Self {
+        Self {
+            token: str.parse().unwrap(),
+        }
     }
 
-    pub fn value(&self) -> &String {
+    pub fn value(&self) -> &str {
         &self.token
     }
 }

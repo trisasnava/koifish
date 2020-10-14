@@ -1,16 +1,17 @@
-use app::TUI;
-use widgets::cli::Koifish;
+use app::Koifish;
+use widgets::cli::Koi;
 
 mod app;
 mod handler;
 mod model;
+mod utils;
 mod widgets;
 
 #[paw::main]
 fn main(args: paw::Args) {
     if args.len() > 1 {
-        Koifish::run();
+        Koi::run();
     } else {
-        TUI::run();
+        Koifish::run();
     }
 }

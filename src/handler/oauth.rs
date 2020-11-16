@@ -52,7 +52,7 @@ pub fn oauth() {
 /// Get Github token and save token to toml file
 #[tokio::main]
 async fn oauth_save_token(code: String) -> Result<(), reqwest::Error> {
-    let oauth_url = "https://koifish.trisasnava.org/oauth";
+    let oauth_url = "https://koifish.trisasnava.org";
 
     let res: serde_json::Value = reqwest::Client::new()
         .post(oauth_url)
@@ -64,10 +64,10 @@ async fn oauth_save_token(code: String) -> Result<(), reqwest::Error> {
 
     match res["token"].as_str() {
         Some(token) => {
-            sava_token(OauthToken::new(token));
             cli::echo_username(res["token"].to_string().replace("\"", "").as_str());
+            sava_token(OauthToken::new(token));
         }
-        None => println!("Token acquisition failed, please try again.")
+        None => println!("Token acquisition failed, please try again."),
     }
     Ok(())
 }
@@ -75,19 +75,15 @@ async fn oauth_save_token(code: String) -> Result<(), reqwest::Error> {
 /// Save GitHub token to toml file
 fn sava_token(token: OauthToken) {
     let token_contents = format!("[oauth_token]\ntoken=\"{}\"", token.value().to_string());
-    match dirs::home_dir() {
-        Some(home) => {
-            let config = Path::new(home.as_path()).join(".koi");
-            fs::write(config, token_contents).expect("Could not write to file!");
-        }
-        _ => {}
-    }
+
+    let config = Path::new(dirs::home_dir().unwrap().as_path()).join(".koi");
+    fs::write(config, token_contents).expect("Could not write to file!");
 }
 
 /// Response with static file
 fn response(mut stream: TcpStream) {
     let index_html = "<!DOCTYPE html><html><head><meta name=\"viewport\" content=\"initial-scale=1, maximum-scale=1, \
-    user-scalable=no\"/><title>Login</title><style type=\"text/css\">html, body {overflow: hidden; margin: 0;background: #000}\
+    user-scalable=no\"/><title>Oauth Login</title><style type=\"text/css\">html, body {overflow: hidden; margin: 0;background: #000}\
     body{font-family: 'Open Sans', 'Helvetica Neue', 'Hiragino Sans GB', 'LiHei Pro', Arial, sans-serif;color: #333}\
     #wrapper {position: absolute;width: 320px;text-align: center;top: 50%;left: 50%;margin-left: -160px;margin-top: -160px;\
     -webkit-user-select: none;-moz-user-select: none;user-select: none}h1 {font-family: 'Montserrat', 'Helvetica Neue', Arial,\

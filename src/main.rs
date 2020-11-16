@@ -1,9 +1,9 @@
-mod tui;
+mod cli;
 mod handler;
 mod model;
+mod tui;
 mod utils;
 mod widgets;
-mod cli;
 
 #[paw::main]
 fn main(args: paw::Args) {

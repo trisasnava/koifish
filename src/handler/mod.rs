@@ -1,6 +1,5 @@
 pub mod cli;
 pub mod issues;
-pub mod login;
 pub mod oauth;
 pub mod org;
 pub mod prs;

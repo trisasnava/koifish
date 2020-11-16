@@ -1,21 +1,31 @@
 #![feature(option_result_contains)]
+extern crate dirs;
 
 use std::fs::File;
 use std::io::{copy, Write};
+use std::path::Path;
+use std::{env, fs};
 
 use console::Emoji;
 use github_rs::client::{Executor, Github};
+use github_rs::headers::{etag, rate_limit_remaining};
 use serde_json::Value;
 use webbrowser;
 
+use crate::utils;
+use crate::utils::counter;
 use crate::utils::network;
 
 /// Echo GitHub user name for koifish CLI
-pub fn echo_username(token: &str) {
+pub fn echo_username(token: &str) -> Result<(), reqwest::Error> {
     let client = Github::new(token).unwrap();
     let me = client.get().user().execute::<Value>();
     match me {
-        Ok((_, _, json)) => {
+        Ok((headers, _, json)) => {
+            if let Some(etag) = etag(&headers) {
+                client.get().set_etag(etag).user().execute::<Value>();
+            }
+
             if let Some(json) = json {
                 println!(
                     "Login successful - [Hi,{},I am {}]",
@@ -24,11 +34,13 @@ pub fn echo_username(token: &str) {
                 );
             }
         }
-        Err(e) => {
+        Err(e) => unsafe {
             println!("Login error, retrying - [{}]", e);
+            counter::num_counter(20, "Login failed, please check the network and try again.");
             echo_username(token);
-        }
+        },
     }
+    Ok(())
 }
 
 /// Open some link in browser for koifish CLI
@@ -84,7 +96,7 @@ pub fn meet() {
 }
 
 /// Upgrade tool for koifish
-pub fn upgrade(token: &str) {
+pub fn upgrade(token: &str, verbose: bool) {
     let client = Github::new(token).unwrap();
     let release = client
         .get()
@@ -92,7 +104,15 @@ pub fn upgrade(token: &str) {
         .execute::<Value>();
 
     match release {
-        Ok((_, _, json_value)) => {
+        Ok((headers, _, json_value)) => {
+            if let Some(etag) = etag(&headers) {
+                client
+                    .get()
+                    .set_etag(etag)
+                    .custom_endpoint("repos/trisasnava/koifish/releases/latest")
+                    .execute::<Value>();
+            }
+
             if let Some(latest) = json_value {
                 if latest["assets"].is_array() {
                     let list = latest["assets"].as_array().unwrap();
@@ -100,10 +120,33 @@ pub fn upgrade(token: &str) {
                         match release["name"].as_str() {
                             Some(os) => {
                                 if os.contains(std::env::consts::OS) {
+                                    if verbose {
+                                        echo_release(&latest, &release);
+                                    }
+
+                                    // download bin file
                                     let download_url =
                                         release["browser_download_url"].as_str().unwrap();
-                                    echo_release(&latest, &release);
-                                    network::download(download_url);
+                                    let tmp_file = Path::new(dirs::cache_dir().unwrap().as_path())
+                                        .join("koi_tmp.exe");
+                                    network::download_form_github(download_url, &*tmp_file);
+
+                                    let bak_file = Path::new(dirs::cache_dir().unwrap().as_path())
+                                        .join("koi_bak.exe");
+
+                                    // replace old bin file
+                                    match utils::self_replace(&*tmp_file, bak_file.as_path()) {
+                                        Ok(..) => println!(
+                                            "Upgrade to {}",
+                                            &latest["tag_name"].as_str().unwrap()
+                                        ),
+                                        Err(e) => {
+                                            fs::rename(
+                                                bak_file,
+                                                env::current_exe().unwrap().as_path(),
+                                            );
+                                        }
+                                    }
                                 }
                             }
                             None => {
@@ -114,10 +157,14 @@ pub fn upgrade(token: &str) {
                 }
             }
         }
-        Err(e) => {
+        Err(e) => unsafe {
             println!("Upgrade error, retrying - [{}]", e);
-            upgrade(token);
-        }
+            counter::num_counter(
+                20,
+                "Upgrade failed, please check the network and try again.",
+            );
+            upgrade(token, verbose);
+        },
     }
 }
 

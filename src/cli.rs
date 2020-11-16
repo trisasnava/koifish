@@ -14,19 +14,31 @@ use crate::model::conf::Config;
     █▄▀ █▀█ ░ █▀▀ ░ █▀ █░█
     █░█ █▄█ █ █▀▀ █ ▄█ █▀█  ")]
 pub enum Koi {
-    /// Verify login via GitHub Oauth
-    Login,
-    /// Join our slack channel
+    /// verify login via GitHub Oauth
+    Login {
+        /// re-oauth with GitHub
+        #[structopt(short, long)]
+        re_oauth: bool,
+    },
+    /// join our slack channel
     Join,
-    /// Open koifish github|website|docs
+    /// open koifish github|website|docs
     Open {
         #[structopt(default_value = "docs")]
         channel: String,
     },
-    /// Start a meeting with https://meet.jit.si/koi
+    /// start a meeting with https://meet.jit.si/koi
     Meet,
-    /// Upgrade tool for Koifish
-    Upgrade,
+    /// upgrade tool for Koifish
+    Upgrade {
+        /// re-oauth with GitHub
+        #[structopt(short, long)]
+        re_oauth: bool,
+
+        /// release notes verbose output
+        #[structopt(short, long)]
+        verbose: bool,
+    },
     // /// Get GitHub user info.
     // User {
     //     #[structopt(default_value = "trisasnava")]
@@ -62,12 +74,11 @@ pub enum Koi {
 }
 
 impl Koi {
-    /// Match Options
     pub fn run() {
         // Self::print_matches();
         match Koi::from_args() {
-            Self::Login => {
-                Self::login();
+            Self::Login { re_oauth } => {
+                Self::login(re_oauth);
             }
             Self::Join => {
                 Self::join();
@@ -78,8 +89,8 @@ impl Koi {
             Self::Meet => {
                 Self::meet();
             }
-            Self::Upgrade => {
-                Self::upgrade();
+            Self::Upgrade { re_oauth, verbose } => {
+                Self::upgrade(re_oauth, verbose);
             }
             _ => {}
         }
@@ -91,7 +102,13 @@ impl Koi {
     }
 
     /// login to GitHub
-    fn login() -> std::io::Result<()> {
+    fn login(re_oauth: bool) -> std::io::Result<()> {
+        println!("Oauth logging in...");
+
+        if re_oauth {
+            oauth::oauth();
+        }
+
         match dirs::home_dir() {
             Some(home) => {
                 let config = Path::new(home.as_path()).join(".koi");
@@ -139,7 +156,13 @@ impl Koi {
     }
 
     /// Upgrade koifish
-    fn upgrade() -> std::io::Result<()> {
+    fn upgrade(re_oauth: bool, verbose: bool) -> std::io::Result<()> {
+        println!("Koifish is upgrading...");
+
+        if re_oauth {
+            oauth::oauth();
+        }
+
         match dirs::home_dir() {
             Some(home) => {
                 let config = Path::new(home.as_path()).join(".koi");
@@ -155,7 +178,7 @@ impl Koi {
                         match config {
                             token => {
                                 if token.get_token().len() > 0 {
-                                    cli::upgrade(token.get_token());
+                                    cli::upgrade(token.get_token(), verbose);
                                 }
                             }
                         }
@@ -170,7 +193,7 @@ impl Koi {
                         match config {
                             token => {
                                 if token.get_token().len() > 0 {
-                                    cli::upgrade(token.get_token());
+                                    cli::upgrade(token.get_token(), verbose);
                                 }
                             }
                         }

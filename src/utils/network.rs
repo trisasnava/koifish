@@ -1,43 +1,45 @@
 use std::cmp::min;
 use std::fs::File;
-use std::io::Write;
+use std::io::{copy, Write};
 use std::path::Path;
-use std::thread;
 use std::time::Duration;
+use std::{fs, thread};
 
 use indicatif::{ProgressBar, ProgressStyle};
-use reqwest;
 
 #[tokio::main]
-pub async fn download(url: &str) -> Result<(), Box<dyn std::error::Error>> {
-    let mut downloaded = 0;
+pub async fn download_form_github(
+    url: &str,
+    tmp_file: &Path,
+) -> Result<(), Box<dyn std::error::Error>> {
+    println!("Download RUL: {}", &url);
 
-    let path = Path::new("koi.exe");
-    let mut file = match File::create(&path) {
+    let mut output_file = match File::create(&tmp_file) {
         Err(why) => panic!("couldn't create {}", why),
         Ok(file) => file,
     };
 
-    let content = reqwest::get(url).await?.bytes().await?;
-
-    file.write(&content);
-
-    let pb = ProgressBar::new(content.len() as u64);
-    pb.set_style(ProgressStyle::default_bar()
-        .template("{spinner:.green} [{elapsed_precise}] [{bar:40.cyan/blue}] {bytes}/{total_bytes} ({eta})")
-        .progress_chars("#>-"));
-
-    // TODO progress bar should be fix
-    use std::fs;
-    while downloaded < content.len() {
-        let new = min(downloaded, content.len());
-        let metadata = fs::metadata(path)?;
-        downloaded = metadata.len() as usize;
-        pb.set_position(new as u64);
-        thread::sleep(Duration::from_millis(1));
+    let mut response = reqwest::get(url).await?;
+    let mut bar = ProgressBar::new(0);
+    match response.content_length() {
+        Some(length) => bar = ProgressBar::new(length),
+        None => {}
     }
 
-    pb.finish_with_message("Downloaded");
+    bar.set_style(ProgressStyle::default_bar()
+        .template("{spinner:.green} [{elapsed_precise}] [{bar:50.cyan/red}] {bytes}/{total_bytes} ({eta})")
+        .progress_chars("#>-"));
+
+    let mut downloaded = 0;
+    let mut length: u64 = 0;
+    while let Some(chunk) = response.chunk().await? {
+        length = length + chunk.len() as u64;
+        let new = min(downloaded, length);
+        downloaded = length;
+        bar.set_position(new as u64);
+        &output_file.write(&*chunk);
+    }
+    bar.finish_with_message("Downloaded");
 
     Ok(())
 }

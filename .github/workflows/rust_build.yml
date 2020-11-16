@@ -3,6 +3,8 @@ name: Rust-Build
 on:
   pull_request:
     branches: [ master ]
+  push:
+      branches: [ master ]
 
 jobs:
   rust_build:

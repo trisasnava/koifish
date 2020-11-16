@@ -5,8 +5,9 @@
 ```shell script
 > koi -h
 
+
     █▄▀ █▀█ ░ █▀▀ ░ █▀ █░█
-    █░█ █▄█ █ █▀▀ █ ▄█ █▀█   0.0.1
+    █░█ █▄█ █ █▀▀ █ ▄█ █▀█   0.0.3
 
 USAGE:
     koi <SUBCOMMAND>
@@ -17,11 +18,12 @@ FLAGS:
 
 SUBCOMMANDS:
     help       Prints this message or the help of the given subcommand(s)
-    join       Join our slack channel
-    login      Verify login via GitHub Oauth
-    meet       Start a meeting with https://meet.jit.si/koi
-    open       Open koifish github|website|docs
-    upgrade    Upgrade tool for Koifish
+    join       join our slack channel
+    login      verify login via GitHub Oauth
+    meet       start a meeting with https://meet.jit.si/koi
+    open       open koifish github|website|docs
+    upgrade    upgrade tool for Koifish
+
 ```
 
 ## login
@@ -30,7 +32,15 @@ When you execute this command, koi will open your default browser.
 And it will oauth your GitHub token to save `$HOME/.koi` file.
   
 ```shell script
-koi login 
+koi login -h
+
+USAGE:
+    koi login [FLAGS]
+
+FLAGS:
+    -h, --help        Prints help information
+    -r, --re-oauth    re-oauth with GitHub
+    -V, --version     Prints version information
 ``` 
 
 When login successfully,it will redirect to this page.  
@@ -43,8 +53,18 @@ When you execute this command, koi will open this channel
 using your default browser 
 
 ```shell script
-koi open 
-koi open github | website | docs
+koi open -h
+
+USAGE:
+    koi open [github | website | docs] 
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+ARGS:
+    <channel>     [default: docs]
+
 ``` 
 
 ## join
@@ -52,7 +72,15 @@ koi open github | website | docs
 Join Koifish slack channel
 
 ```shell script
-koi join
+koi join -h 
+
+USAGE:
+    koi join
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
 ```
 
 ## meet
@@ -60,7 +88,14 @@ koi join
 Start a meeting with https://meet.jit.si/koi
 
 ```shell script
-koi meet 
+koi meet -h
+
+USAGE:
+    koi meet
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
 ```
 
 ## upgrade
@@ -68,5 +103,14 @@ koi meet
 Upgrade Koifish to latest version
 
 ```shell script
-koi upgrade
+koi upgrade -h
+
+USAGE:
+    koi upgrade [FLAGS]
+
+FLAGS:
+    -h, --help        Prints help information
+    -r, --re-oauth    re-oauth with GitHub
+    -V, --version     Prints version information
+    -v, --verbose     release notes verbose output
 ```

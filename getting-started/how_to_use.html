@@ -169,8 +169,9 @@
 <h1><a class="header" href="#help" id="help">help</a></h1>
 <pre><code class="language-shellscript">&gt; koi -h
 
+
     █▄▀ █▀█ ░ █▀▀ ░ █▀ █░█
-    █░█ █▄█ █ █▀▀ █ ▄█ █▀█   0.0.1
+    █░█ █▄█ █ █▀▀ █ ▄█ █▀█   0.0.3
 
 USAGE:
     koi &lt;SUBCOMMAND&gt;
@@ -181,36 +182,79 @@ FLAGS:
 
 SUBCOMMANDS:
     help       Prints this message or the help of the given subcommand(s)
-    join       Join our slack channel
-    login      Verify login via GitHub Oauth
-    meet       Start a meeting with https://meet.jit.si/koi
-    open       Open koifish github|website|docs
-    upgrade    Upgrade tool for Koifish
+    join       join our slack channel
+    login      verify login via GitHub Oauth
+    meet       start a meeting with https://meet.jit.si/koi
+    open       open koifish github|website|docs
+    upgrade    upgrade tool for Koifish
+
 </code></pre>
 <h2><a class="header" href="#login" id="login">login</a></h2>
 <p>When you execute this command, koi will open your default browser. 
 And it will oauth your GitHub token to save <code>$HOME/.koi</code> file.</p>
-<pre><code class="language-shellscript">koi login 
+<pre><code class="language-shellscript">koi login -h
+
+USAGE:
+    koi login [FLAGS]
+
+FLAGS:
+    -h, --help        Prints help information
+    -r, --re-oauth    re-oauth with GitHub
+    -V, --version     Prints version information
 </code></pre>
 <p>When login successfully,it will redirect to this page.</p>
 <p><img src="https://user-images.githubusercontent.com/25944814/89096743-62784780-d40b-11ea-8a50-8ec50e1ea550.png" alt="" /></p>
 <h2><a class="header" href="#open" id="open">open</a></h2>
 <p>When you execute this command, koi will open this channel 
 using your default browser </p>
-<pre><code class="language-shellscript">koi open 
-koi open github | website | docs
+<pre><code class="language-shellscript">koi open -h
+
+USAGE:
+    koi open [github | website | docs] 
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+ARGS:
+    &lt;channel&gt;     [default: docs]
+
 </code></pre>
 <h2><a class="header" href="#join" id="join">join</a></h2>
 <p>Join Koifish slack channel</p>
-<pre><code class="language-shellscript">koi join
+<pre><code class="language-shellscript">koi join -h 
+
+USAGE:
+    koi join
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
 </code></pre>
 <h2><a class="header" href="#meet" id="meet">meet</a></h2>
 <p>Start a meeting with https://meet.jit.si/koi</p>
-<pre><code class="language-shellscript">koi meet 
+<pre><code class="language-shellscript">koi meet -h
+
+USAGE:
+    koi meet
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
 </code></pre>
 <h2><a class="header" href="#upgrade" id="upgrade">upgrade</a></h2>
 <p>Upgrade Koifish to latest version</p>
-<pre><code class="language-shellscript">koi upgrade
+<pre><code class="language-shellscript">koi upgrade -h
+
+USAGE:
+    koi upgrade [FLAGS]
+
+FLAGS:
+    -h, --help        Prints help information
+    -r, --re-oauth    re-oauth with GitHub
+    -V, --version     Prints version information
+    -v, --verbose     release notes verbose output
 </code></pre>
 
                     </main>

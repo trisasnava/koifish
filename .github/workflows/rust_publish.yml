@@ -1,4 +1,4 @@
-name: Publish
+name: Crates-Publish
 
 on:
   release:

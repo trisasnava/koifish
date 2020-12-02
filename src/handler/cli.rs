@@ -1,10 +1,10 @@
 #![feature(option_result_contains)]
 extern crate dirs;
 
+use std::{env, fs};
 use std::fs::File;
 use std::io::{copy, Write};
 use std::path::Path;
-use std::{env, fs};
 
 use console::Emoji;
 use github_rs::client::{Executor, Github};
@@ -117,6 +117,7 @@ pub fn upgrade(token: &str, verbose: bool) {
                 if latest["assets"].is_array() {
                     let list = latest["assets"].as_array().unwrap();
                     for release in list.iter() {
+                        // is latest
                         match release["name"].as_str() {
                             Some(os) => {
                                 if os.contains(std::env::consts::OS) {
@@ -128,11 +129,11 @@ pub fn upgrade(token: &str, verbose: bool) {
                                     let download_url =
                                         release["browser_download_url"].as_str().unwrap();
                                     let tmp_file = Path::new(dirs::cache_dir().unwrap().as_path())
-                                        .join("koi_tmp.exe");
+                                        .join(release["name"].as_str().unwrap());
                                     network::download_form_github(download_url, &*tmp_file);
 
                                     let bak_file = Path::new(dirs::cache_dir().unwrap().as_path())
-                                        .join("koi_bak.exe");
+                                        .join("koi.bak");
 
                                     // replace old bin file
                                     match utils::self_replace(&*tmp_file, bak_file.as_path()) {

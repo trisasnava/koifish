@@ -9,6 +9,6 @@ pub struct Details {
 
 impl Details {
     pub fn draw() {
-        //TODO
+        todo!()
     }
 }

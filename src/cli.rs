@@ -1,148 +1,98 @@
-use std::fs::File;
-use std::io::Read;
-use std::path::Path;
-
 use structopt::StructOpt;
-use toml;
 
 use crate::handler::cli;
 use crate::handler::oauth;
-use crate::model::conf::Config;
+use crate::model::conf::{Config, Oauth};
 
 #[derive(Debug, PartialEq, StructOpt)]
 #[structopt(name = "
     █▄▀ █▀█ ░ █▀▀ ░ █▀ █░█
     █░█ █▄█ █ █▀▀ █ ▄█ █▀█  ")]
-pub enum Koi {
-    /// verify login via GitHub Oauth
+pub enum KoiFish {
+    /// Verify login via GitHub Oauth
     Login {
-        /// re-oauth with GitHub
+        /// Re-oauth via GitHub Oauth
         #[structopt(short, long)]
         re_oauth: bool,
     },
-    /// join our slack channel
-    Join,
-    /// open koifish github|website|docs
+    /// Join our Slack/Discord channel,default is Slack
+    Join {
+        /// Join our Slack/Discord channel
+        #[structopt(default_value = "slack")]
+        channel: String,
+    },
+    /// Open Koifish GitHub/Website/Docs
     Open {
         #[structopt(default_value = "docs")]
         channel: String,
     },
-    /// start a meeting with https://meet.jit.si/koi
-    Meet,
-    /// upgrade tool for Koifish
+    /// Start a meeting  at https://meet.jit.si/koig
+    Meeting,
+    /// Upgrade Koifish from GitHub Release
     Upgrade {
-        /// re-oauth with GitHub
+        /// Re-oauth via GitHub Oauth
         #[structopt(short, long)]
         re_oauth: bool,
 
-        /// release notes verbose output
+        /// Release notes verbose output
         #[structopt(short, long)]
         verbose: bool,
     },
-    // /// Get GitHub user info.
-    // User {
-    //     #[structopt(default_value = "trisasnava")]
-    //     user_or_org: String,
-    // },
-    // /// Get GitHub repo info.
-    // Repo {
-    //     #[structopt(default_value = "trisasnava")]
-    //     user_or_org: String,
-    //     #[structopt(default_value = "koifish")]
-    //     repo: String,
-    // },
-    // /// Get GitHub issues info in your repo.
-    // Issues {
-    //     #[structopt(default_value = "trisasnava")]
-    //     user_or_org: String,
-    //     #[structopt(default_value = "koifish")]
-    //     repo: String,
-    // },
-    // /// Get GitHub prs info for your repo.
-    // Prs {
-    //     #[structopt(default_value = "trisasnava")]
-    //     user_or_org: String,
-    //     #[structopt(default_value = "koifish")]
-    //     repo: String,
-    // },
-    // /// Get GitHub trending repo info.
-    // #[structopt(help = "Fitter by daily|weekly|monthly,The default is daily.")]
-    // Trending {
-    //     #[structopt(default_value = "daily")]
-    //     date: String,
-    // },
 }
 
-impl Koi {
+impl KoiFish {
     pub fn run() {
         // Self::print_matches();
-        match Koi::from_args() {
+        match KoiFish::from_args() {
             Self::Login { re_oauth } => {
                 Self::login(re_oauth);
             }
-            Self::Join => {
-                Self::join();
+            Self::Join { channel } => {
+                Self::join(channel);
             }
             Self::Open { channel } => {
                 Self::open(channel);
             }
-            Self::Meet => {
-                Self::meet();
+            Self::Meeting => {
+                Self::meeting();
             }
             Self::Upgrade { re_oauth, verbose } => {
                 Self::upgrade(re_oauth, verbose);
             }
-            _ => {}
         }
-    }
-
-    /// print matches for test
-    fn print_matches() {
-        println!("{:#?}", Self::from_args());
     }
 
     /// login to GitHub
     fn login(re_oauth: bool) -> std::io::Result<()> {
-        println!("Oauth logging in...");
+        println!("Oauth logging...");
 
         if re_oauth {
             oauth::oauth();
         }
 
-        match dirs::home_dir() {
-            Some(home) => {
-                let config = Path::new(home.as_path()).join(".koi");
-                match config.exists() {
-                    false => {
-                        oauth::oauth();
-                    }
-                    true => {
-                        let mut file = File::open(config.as_path())?;
-                        let mut contents = String::new();
-                        file.read_to_string(&mut contents)?;
-
-                        let config: Config = toml::from_str(contents.as_str()).unwrap();
-
-                        match config {
-                            token => {
-                                if token.get_token().len() > 0 {
-                                    cli::echo_username(token.get_token());
-                                } else {
-                                    oauth::oauth();
-                                }
-                            }
+        match Config::new().read() {
+            Ok(config) => match config.oauth {
+                Oauth { token, .. } => match token {
+                    Some(token) => {
+                        if token.is_empty() {
+                            oauth::oauth();
                         }
+                        cli::echo_username(token.as_str());
                     }
-                }
+                    None => oauth::oauth(),
+                },
+            },
+            Err(err) => {
+                println!("Failed to read configuration file - {}", err)
             }
-            _ => {}
         }
+
         Ok(())
     }
 
     /// join slack channel
-    fn join() {
-        cli::join();
+    fn join(channel: String) {
+        cli::join(channel);
     }
 
     /// Open Koifish site
@@ -151,8 +101,8 @@ impl Koi {
     }
 
     /// Start a meeting
-    fn meet() {
-        cli::meet();
+    fn meeting() {
+        cli::meeting();
     }
 
     /// Upgrade koifish
@@ -163,45 +113,24 @@ impl Koi {
             oauth::oauth();
         }
 
-        match dirs::home_dir() {
-            Some(home) => {
-                let config = Path::new(home.as_path()).join(".koi");
-                match config.exists() {
-                    false => {
-                        oauth::oauth();
-                        let mut file = File::open(config.as_path())?;
-                        let mut contents = String::new();
-                        file.read_to_string(&mut contents)?;
-
-                        let config: Config = toml::from_str(contents.as_str()).unwrap();
-
-                        match config {
-                            token => {
-                                if token.get_token().len() > 0 {
-                                    cli::upgrade(token.get_token(), verbose);
-                                }
-                            }
+        match Config::new().read() {
+            Ok(config) => match config.oauth {
+                Oauth { token, .. } => match token {
+                    None => oauth::oauth(),
+                    Some(token) => {
+                        if token.is_empty() {
+                            oauth::oauth();
                         }
+                        cli::echo_username(token.as_str());
+                        cli::upgrade(token.as_str(), verbose);
                     }
-                    true => {
-                        let mut file = File::open(config.as_path())?;
-                        let mut contents = String::new();
-                        file.read_to_string(&mut contents)?;
-
-                        let config: Config = toml::from_str(contents.as_str()).unwrap();
-
-                        match config {
-                            token => {
-                                if token.get_token().len() > 0 {
-                                    cli::upgrade(token.get_token(), verbose);
-                                }
-                            }
-                        }
-                    }
-                }
+                },
+            },
+            Err(err) => {
+                println!("Failed to read configuration file - {}", err)
             }
-            _ => {}
         }
+
         Ok(())
     }
 }

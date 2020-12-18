@@ -6,7 +6,6 @@ use tui::widgets::{Block, Borders};
 use tui::Terminal;
 
 pub struct Home {
-    search: Layout,
     user_info: Layout,
     repo_info: Layout,
     trending_repo: Layout,

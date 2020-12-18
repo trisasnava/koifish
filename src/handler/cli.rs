@@ -1,20 +1,17 @@
-#![feature(option_result_contains)]
 extern crate dirs;
 
-use std::{env, fs};
-use std::fs::File;
-use std::io::{copy, Write};
 use std::path::Path;
+use std::{env, fs};
 
 use console::Emoji;
 use github_rs::client::{Executor, Github};
-use github_rs::headers::{etag, rate_limit_remaining};
+use github_rs::headers::etag;
 use serde_json::Value;
 use webbrowser;
 
 use crate::utils;
-use crate::utils::counter;
 use crate::utils::network;
+use crate::utils::Counter;
 
 /// Echo GitHub user name for koifish CLI
 pub fn echo_username(token: &str) -> Result<(), reqwest::Error> {
@@ -23,7 +20,12 @@ pub fn echo_username(token: &str) -> Result<(), reqwest::Error> {
     match me {
         Ok((headers, _, json)) => {
             if let Some(etag) = etag(&headers) {
-                client.get().set_etag(etag).user().execute::<Value>();
+                client
+                    .get()
+                    .set_etag(etag)
+                    .user()
+                    .execute::<Value>()
+                    .unwrap();
             }
 
             if let Some(json) = json {
@@ -34,11 +36,13 @@ pub fn echo_username(token: &str) -> Result<(), reqwest::Error> {
                 );
             }
         }
-        Err(e) => unsafe {
+        Err(e) => {
             println!("Login error, retrying - [{}]", e);
-            counter::num_counter(20, "Login failed, please check the network and try again.");
-            echo_username(token);
-        },
+            Counter::new(20)
+                .count()
+                .msg("Login failed, please check the network and try again.");
+            echo_username(token).unwrap();
+        }
     }
     Ok(())
 }
@@ -49,43 +53,63 @@ pub fn open(channel: String) {
     let website = "https://trisasnava.org";
     let docs = "https://trisasnava.org/koifish";
 
-    if channel.as_str() == "github" {
-        if webbrowser::open(github).is_ok() {
-            println!("Open {:?} successful !", channel);
-        } else {
+    match channel.as_str() {
+        "github" => {
+            if webbrowser::open(github).is_ok() {
+                println!("Open {:?} successful !", channel);
+            } else {
+                println!("Open {:?} failure !", channel);
+            };
+        }
+        "website" => {
+            if webbrowser::open(website).is_ok() {
+                println!("Open {:?} successful !", channel);
+            } else {
+                println!("Open {:?} failure !", channel);
+            }
+        }
+        "docs" => {
+            if webbrowser::open(docs).is_ok() {
+                println!("Open {:?} successful !", channel);
+            } else {
+                println!("Open {:?} failure !", channel);
+            };
+        }
+        _ => {
             println!("Open {:?} failure !", channel);
-        };
-    } else if channel.as_str() == "website" {
-        if webbrowser::open(website).is_ok() {
-            println!("Open {:?} successful !", channel);
-        } else {
-            println!("Open {:?} failure !", channel);
-        };
-    } else if channel.as_str() == "docs" {
-        if webbrowser::open(docs).is_ok() {
-            println!("Open {:?} successful !", channel);
-        } else {
-            println!("Open {:?} failure !", channel);
-        };
-    } else {
-        println!("Open {:?} failure !", channel);
+        }
     }
 }
 
 /// Join koifish channel in koifish CLI
-pub fn join() {
+pub fn join(channel: String) {
     let slack = "https://trisasnava.slack.com/join/shared_invite/enQtODg1NjI0NTc1NzAz\
     LTBjYTM1YjQxZWZkMTExYTBlNTcxNjQzYTc0MjRmNDNjMmIxZmMwZjM5ODFkZWExNjJkNWMwZWRjOGJlODdiM2Q";
+    let discord = "https://discord.gg/FztbBXbq";
 
-    if webbrowser::open(slack).is_ok() {
-        println!("Open slack successful !");
-    } else {
-        println!("Open Slack failure !");
+    match channel.as_str() {
+        "slack" => {
+            if webbrowser::open(slack).is_ok() {
+                println!("Open {:?} successful !", channel);
+            } else {
+                println!("Open {:?} failure !", channel);
+            }
+        }
+        "discord" => {
+            if webbrowser::open(discord).is_ok() {
+                println!("Open {:?} successful !", channel);
+            } else {
+                println!("Open {:?} failure !", channel);
+            }
+        }
+        _ => {
+            println!("Open {:?} failure !", channel);
+        }
     }
 }
 
 /// Start a meeting with koifish CLI
-pub fn meet() {
+pub fn meeting() {
     let meet = "https://meet.jit.si/koi";
 
     if webbrowser::open(meet).is_ok() {
@@ -110,7 +134,8 @@ pub fn upgrade(token: &str, verbose: bool) {
                     .get()
                     .set_etag(etag)
                     .custom_endpoint("repos/trisasnava/koifish/releases/latest")
-                    .execute::<Value>();
+                    .execute::<Value>()
+                    .unwrap();
             }
 
             if let Some(latest) = json_value {
@@ -146,6 +171,7 @@ pub fn upgrade(token: &str, verbose: bool) {
                                                 bak_file,
                                                 env::current_exe().unwrap().as_path(),
                                             );
+                                            println!("ERROR,{}", e);
                                         }
                                     }
                                 }
@@ -158,14 +184,13 @@ pub fn upgrade(token: &str, verbose: bool) {
                 }
             }
         }
-        Err(e) => unsafe {
+        Err(e) => {
             println!("Upgrade error, retrying - [{}]", e);
-            counter::num_counter(
-                20,
-                "Upgrade failed, please check the network and try again.",
-            );
+            Counter::new(20)
+                .count()
+                .msg("Upgrade failed, please check the network and try again.");
             upgrade(token, verbose);
-        },
+        }
     }
 }
 

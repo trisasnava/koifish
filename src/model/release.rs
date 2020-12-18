@@ -7,7 +7,3 @@ pub struct Release {
     version: String,
     browser_download_url: String,
 }
-
-impl Release {
-    pub fn new() {}
-}

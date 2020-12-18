@@ -1,9 +1,7 @@
-use std::{fs, thread};
 use std::cmp::min;
 use std::fs::File;
-use std::io::{copy, Write};
+use std::io::Write;
 use std::path::Path;
-use std::time::Duration;
 
 use indicatif::{ProgressBar, ProgressStyle};
 

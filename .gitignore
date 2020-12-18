@@ -1,5 +1,4 @@
 .idea/
-Cargo.lock
 target/
 book/
 *.iml

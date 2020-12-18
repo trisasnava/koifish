@@ -1,9 +1,7 @@
 extern crate dirs;
 
-use std::fs;
 use std::io::{BufRead, BufReader, Write};
 use std::net::{TcpListener, TcpStream};
-use std::path::Path;
 
 use reqwest;
 use reqwest::Url;
@@ -11,7 +9,7 @@ use serde_json;
 use webbrowser;
 
 use crate::handler::cli;
-use crate::model::oauth::OauthToken;
+use crate::model::conf::Config;
 
 /// GitHub OAuth for koifish
 pub fn oauth() {
@@ -39,7 +37,12 @@ pub fn oauth() {
                         .unwrap();
 
                     let (_, value) = code_pair;
-                    oauth_save_token(value.to_string());
+                    match oauth_and_save(value.to_string()) {
+                        Ok(..) => {}
+                        Err(err) => {
+                            println!("Oauth Error {}", err)
+                        }
+                    }
                     response(stream);
                     break;
                 }
@@ -51,7 +54,7 @@ pub fn oauth() {
 
 /// Get Github token and save token to toml file
 #[tokio::main]
-async fn oauth_save_token(code: String) -> Result<(), reqwest::Error> {
+async fn oauth_and_save(code: String) -> Result<(), reqwest::Error> {
     let oauth_url = "https://koifish.trisasnava.org";
 
     let res: serde_json::Value = reqwest::Client::new()
@@ -64,20 +67,11 @@ async fn oauth_save_token(code: String) -> Result<(), reqwest::Error> {
 
     match res["token"].as_str() {
         Some(token) => {
-            cli::echo_username(res["token"].to_string().replace("\"", "").as_str());
-            sava_token(OauthToken::new(token));
+            Config::save_token("GitHub", &token);
         }
         None => println!("Token acquisition failed, please try again."),
     }
     Ok(())
-}
-
-/// Save GitHub token to toml file
-fn sava_token(token: OauthToken) {
-    let token_contents = format!("[oauth_token]\ntoken=\"{}\"", token.value().to_string());
-
-    let config = Path::new(dirs::home_dir().unwrap().as_path()).join(".koi");
-    fs::write(config, token_contents).expect("Could not write to file!");
 }
 
 /// Response with static file

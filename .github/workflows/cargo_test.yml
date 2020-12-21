@@ -7,7 +7,7 @@ on:
 
 jobs:
   cargo-test:
-    name: Cargo test on ${{ matrix.os }}
+    name: Run test on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:

@@ -1,9 +1,7 @@
-name: Docs-Build
+name: mdbook-build
 
 on:
   pull_request:
-    branches: [master]
-  push:
     branches: [master]
 
 jobs:

@@ -1,4 +1,4 @@
-# Sign the CLA
+[![Sign](https://img.shields.io/badge/Click%20To%20Agree-orange?style=for-the-badge&color=%23E5531A)](https://cla-assistant.io/trisasnava/koifish)
 
 ﻿**Contributor License Agreement**
 
@@ -55,4 +55,4 @@ except as explicitly described in this agreement, you have provided the
 Contribution on an "as is" basis, without warranties as to merchantability, or
 fitness for a particular purpose.
 
-[Please sign in with GitHub to agree](https://cla-assistant.io/trisasnava/koifish)
+[![Sign](https://img.shields.io/badge/Click%20To%20Agree-orange?style=for-the-badge&color=%23E5531A)](https://cla-assistant.io/trisasnava/koifish)

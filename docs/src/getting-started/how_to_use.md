@@ -1,13 +1,12 @@
 # How to use
 
-# help
+## CLI help info
 
 ```shell script
 > koi -h
 
-
     █▄▀ █▀█ ░ █▀▀ ░ █▀ █░█
-    █░█ █▄█ █ █▀▀ █ ▄█ █▀█   0.0.3
+    █░█ █▄█ █ █▀▀ █ ▄█ █▀█   0.0.5
 
 USAGE:
     koi <SUBCOMMAND>
@@ -23,7 +22,6 @@ SUBCOMMANDS:
     meet       start a meeting with https://meet.jit.si/koi
     open       open koifish github|website|docs
     upgrade    upgrade tool for Koifish
-
 ```
 
 ## login
@@ -114,3 +112,15 @@ FLAGS:
     -V, --version     Prints version information
     -v, --verbose     release notes verbose output
 ```
+
+## Related Links
+
+- [Code of conduct](../contribution/CODE_OF_CONDUCT.md)
+
+- [Sign the CLA](../contribution/CLA.md)
+
+- [Contribute code](../contribution/code.md)
+
+- [Contribute docs](../contribution/docs.md)
+
+- [FAQ](../FAQ.md)

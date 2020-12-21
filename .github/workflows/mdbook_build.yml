@@ -1,20 +1,17 @@
-name: Docs-Build
+name: mdbook-build
 
 on:
   pull_request:
-    branches: [master]
-  push:
-    branches: [master]
+    branches: [ master ]
 
 jobs:
-  build_doc:
+  mdbook-build:
+    name: Mdbook Build
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
-
       - name: Setup mdBook
         uses: peaceiris/actions-mdbook@v1
         with:
           mdbook-version: 'latest'
-
       - run: mdbook build docs

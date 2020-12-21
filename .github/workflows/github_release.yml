@@ -20,7 +20,6 @@ jobs:
           - os: macos-latest
             artifact_name: koi
             asset_name: koi-macos-amd64
-
     steps:
       - uses: actions/checkout@v2
       - name: Build

@@ -55,7 +55,7 @@ pub fn oauth() {
 /// Get Github token and save token to toml file
 #[tokio::main]
 async fn oauth_and_save(code: String) -> Result<(), reqwest::Error> {
-    let oauth_url = "https://koifish.trisasnava.org";
+    let oauth_url = "https://koi.trisasnava.org";
 
     let res: serde_json::Value = reqwest::Client::new()
         .post(oauth_url)

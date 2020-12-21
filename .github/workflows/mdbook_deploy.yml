@@ -2,10 +2,10 @@ name: mdbook-deploy
 
 on:
   push:
-    branches: [master]
+    branches: [ master ]
 
 jobs:
-  deploy_doc:
+  mdbook-deploy:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2

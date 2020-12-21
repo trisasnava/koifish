@@ -12,9 +12,8 @@
 [![downloads](https://img.shields.io/crates/d/koifish?style=flat-square&color=%23E5531A)](https://crates.io/crates/koifish)
 [![GitHub Release](https://img.shields.io/github/v/release/trisasnava/koifish?include_prereleases&sort=semver&color=%23E5531A&style=flat-square)](https://github.com/trisasnava/koifish/releases)
 ![Top Lang](https://img.shields.io/github/languages/top/trisasnava/koifish?color=%23E5531A&style=flat-square)
-[![Rust Build](https://img.shields.io/github/workflow/status/trisasnava/koifish/cargo-build?label=rust%20build&style=flat-square)](https://github.com/trisasnava/koifish/actions?query=workflow:cargo-build)
-[![Docs Build](https://img.shields.io/github/workflow/status/trisasnava/koifish/mdbook-build?label=docs%20build&style=flat-square)](https://github.com/trisasnava/koifish/actions?query=workflow:mdbook-build)
-
+[![Rust Build](https://img.shields.io/github/workflow/status/trisasnava/koifish/cargo-test?label=rust%20build&style=flat-square)](https://github.com/trisasnava/koifish/actions?query=workflow:cargo-test)
+[![Docs Build](https://img.shields.io/github/workflow/status/trisasnava/koifish/mdbook-deploy?label=docs%20build&style=flat-square)](https://github.com/trisasnava/koifish/actions?query=workflow:mdbook-deploy)
 </div>
 
 ----------------------------------------------------------------------------------------------

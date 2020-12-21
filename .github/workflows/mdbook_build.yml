@@ -2,10 +2,10 @@ name: mdbook-build
 
 on:
   pull_request:
-    branches: [master]
+    branches: [ master ]
 
 jobs:
-  build_doc:
+  mdbook-build:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2

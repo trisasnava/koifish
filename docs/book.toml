@@ -9,7 +9,7 @@ description = "The Koifish Book."
 [output.html]
 cname="koifish.trisasnava.org"
 default-theme = "ayu"
-git-repository-url = "https://GITHUB.com/trisasnava/koifish/tree/master/DOCS/src"
+git-repository-url = "https://GITHUB.com/trisasnava/koifish/tree/master/doc/src"
 
 [output.html.playpen]
 editable = true

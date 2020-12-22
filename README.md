@@ -1,17 +1,17 @@
 <div align="center">
 
-![Logo](./docs/theme/favicon.png)
+![Logo](./DOCS/theme/favicon.png)
 
 <h1>Koifish</h1>
 <h3>A toolchain for community collaboration</h3>
 
 ![Status](https://img.shields.io/badge/status-alpha-critical?color=%23E5531A&style=flat-square)
-[![Contribute](https://img.shields.io/badge/contribute-now-a94064?color=%23E5531A&)](https://gitpod.io/#https://github.com/trisasnava/koifish)
+[![Contribute](https://img.shields.io/badge/contribute-now-a94064?color=%23E5531A&)](https://gitpod.io/#https://GITHUB.com/trisasnava/koifish)
 [![downloads](https://img.shields.io/crates/d/koifish?style=flat-square&color=%23E5531A)](https://crates.io/crates/koifish)
-[![GitHub Release](https://img.shields.io/github/v/release/trisasnava/koifish?include_prereleases&sort=semver&color=%23E5531A&style=flat-square)](https://github.com/trisasnava/koifish/releases)
-![Top Lang](https://img.shields.io/github/languages/top/trisasnava/koifish?color=%23E5531A&style=flat-square)
-[![Rust Build](https://img.shields.io/github/workflow/status/trisasnava/koifish/cargo-test?label=rust%20build&style=flat-square)](https://github.com/trisasnava/koifish/actions?query=workflow:cargo-test)
-[![Docs Build](https://img.shields.io/github/workflow/status/trisasnava/koifish/mdbook-deploy?label=docs%20build&style=flat-square)](https://github.com/trisasnava/koifish/actions?query=workflow:mdbook-deploy)
+[![GitHub Release](https://img.shields.io/GITHUB/v/release/trisasnava/koifish?include_prereleases&sort=semver&color=%23E5531A&style=flat-square)](https://GITHUB.com/trisasnava/koifish/releases)
+![Top Lang](https://img.shields.io/GITHUB/languages/top/trisasnava/koifish?color=%23E5531A&style=flat-square)
+[![Rust Build](https://img.shields.io/GITHUB/workflow/status/trisasnava/koifish/cargo-test?label=rust%20build&style=flat-square)](https://GITHUB.com/trisasnava/koifish/actions?query=workflow:cargo-test)
+[![Docs Build](https://img.shields.io/GITHUB/workflow/status/trisasnava/koifish/mdbook-deploy?label=DOCS%20build&style=flat-square)](https://GITHUB.com/trisasnava/koifish/actions?query=workflow:mdbook-deploy)
 
 </div>
 
@@ -24,8 +24,8 @@ A toolchain for community collaboration.
 
 ## Community
 
-<a href="https://trisasnava.slack.com/join/shared_invite/enQtODg1NjI0NTc1NzAzLTBjYTM1YjQxZWZkMTExYTBlNTcxNjQzYTc0MjRmNDNjMmIxZmMwZjM5ODFkZWExNjJkNWMwZWRjOGJlODdiM2Q"><img src="https://img.shields.io/badge/discuss%20on-slack-4A154B?logo=slack&style=flat-square"/></a>
-<a href="https://discord.gg/JeqN3Q9E"><img src="https://img.shields.io/badge/talk-on%20discord-7289DA?logo=discord&style=flat-square"/></a>
+<a href="https://trisasnava.SLACK.com/join/shared_invite/enQtODg1NjI0NTc1NzAzLTBjYTM1YjQxZWZkMTExYTBlNTcxNjQzYTc0MjRmNDNjMmIxZmMwZjM5ODFkZWExNjJkNWMwZWRjOGJlODdiM2Q"><img src="https://img.shields.io/badge/discuss%20on-SLACK-4A154B?logo=SLACK&style=flat-square"/></a>
+<a href="https://DISCORD.gg/JeqN3Q9E"><img src="https://img.shields.io/badge/talk-on%20discord-7289DA?logo=DISCORD&style=flat-square"/></a>
 
 
 ## Installation
@@ -42,7 +42,7 @@ cargo install koifish
 
 ### Binary
 
-Download from [release](https://github.com/trisasnava/koifish/releases/latest) and to `PATH`
+Download from [release](https://GITHUB.com/trisasnava/koifish/releases/latest) and to `PATH`
 
 ## How to use
 
@@ -61,26 +61,26 @@ FLAGS:
 
 SUBCOMMANDS:
     help       Prints this message or the help of the given subcommand(s)
-    join       join our slack channel
+    join       join our SLACK channel
     login      verify login via GitHub Oauth
-    meet       start a meeting with https://meet.jit.si/koi
-    open       open koifish github|website|docs
+    MEET       start a meeting with https://MEET.jit.si/koi
+    open       open koifish GITHUB|WEBSITE|DOCS
     upgrade    upgrade tool for Koifish
 ```
 
 ## Contributing
 
-- [Code of conduct](docs/src/contribution/CODE_OF_CONDUCT.md)
+- [Code of conduct](DOCS/src/contribution/CODE_OF_CONDUCT.md)
   
-- [Sign the CLA](docs/src/contribution/CLA.md)
+- [Sign the CLA](DOCS/src/contribution/CLA.md)
   
-- [Contribute code](docs/src/contribution/code.md)
+- [Contribute code](DOCS/src/contribution/code.md)
   
-- [Contribute docs](docs/src/contribution/docs.md)
+- [Contribute DOCS](DOCS/src/contribution/DOCS.md)
   
-- [FAQ](docs/src/FAQ.md)
+- [FAQ](DOCS/src/FAQ.md)
 
-[![Contribute Now](https://img.shields.io/badge/Contribute-now-a94064?style=for-the-badge&color=%23E5531A)](https://gitpod.io/#https://github.com/trisasnava/koifish)
+[![Contribute Now](https://img.shields.io/badge/Contribute-now-a94064?style=for-the-badge&color=%23E5531A)](https://gitpod.io/#https://GITHUB.com/trisasnava/koifish)
 
 ## LICENSE
 

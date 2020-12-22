@@ -37,7 +37,7 @@ pub async fn download_form_github(
         bar.set_position(new as u64);
         &output_file.write(&*chunk);
     }
-    bar.finish_with_message("Downloaded");
+    bar.finish_with_message("Done!");
 
     Ok(())
 }

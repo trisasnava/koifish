@@ -1,14 +1,46 @@
+use log::{error, info};
 use structopt::StructOpt;
 
-use crate::handler::cli;
-use crate::handler::oauth;
-use crate::model::conf::{Config, Oauth};
+use crate::config::{Config, Oauth};
+use crate::handler;
+use crate::logger::Logger;
 
 #[derive(Debug, PartialEq, StructOpt)]
 #[structopt(name = "
     █▄▀ █▀█ ░ █▀▀ ░ █▀ █░█
     █░█ █▄█ █ █▀▀ █ ▄█ █▀█  ")]
-pub enum KoiFish {
+pub struct Koifish {
+    /// Activate debug mode
+    #[structopt(short, long)]
+    debug: bool,
+
+    /// Subcommand
+    #[structopt(flatten)]
+    fish: Fish,
+}
+
+impl Koifish {
+    pub fn run() {
+        match Koifish::from_args() {
+            Koifish { debug, fish } => {
+                if debug {
+                    match Logger::level("debug") {
+                        Ok(logger) => {
+                            info!("Log path [{}]", logger.log_path.display())
+                        }
+                        Err(_e) => {
+                            error!("Logger setup error!")
+                        }
+                    };
+                }
+                Fish::run(fish);
+            }
+        }
+    }
+}
+
+#[derive(Debug, PartialEq, StructOpt)]
+enum Fish {
     /// Verify login via GitHub Oauth
     Login {
         /// Re-oauth via GitHub Oauth
@@ -36,38 +68,37 @@ pub enum KoiFish {
 
         /// Release notes verbose output
         #[structopt(short, long)]
-        verbose: bool,
+        more: bool,
     },
 }
 
-impl KoiFish {
-    pub fn run() {
-        // Self::print_matches();
-        match KoiFish::from_args() {
-            Self::Login { re_oauth } => {
+impl Fish {
+    fn run(self) {
+        match self {
+            Fish::Login { re_oauth } => {
                 Self::login(re_oauth);
             }
-            Self::Join { channel } => {
+            Fish::Join { channel } => {
                 Self::join(channel);
             }
-            Self::Open { channel } => {
+            Fish::Open { channel } => {
                 Self::open(channel);
             }
-            Self::Meeting => {
+            Fish::Meeting => {
                 Self::meeting();
             }
-            Self::Upgrade { re_oauth, verbose } => {
-                Self::upgrade(re_oauth, verbose);
+            Fish::Upgrade { re_oauth, more } => {
+                Self::upgrade(re_oauth, more).unwrap();
             }
         }
     }
 
     /// login to GitHub
-    fn login(re_oauth: bool) -> std::io::Result<()> {
-        println!("Oauth logging...");
+    fn login(re_oauth: bool) {
+        println!("Signing in with GitHub Oauth...");
 
         if re_oauth {
-            oauth::oauth();
+            handler::oauth::oauth();
         }
 
         match Config::new().read() {
@@ -75,62 +106,59 @@ impl KoiFish {
                 Oauth { token, .. } => match token {
                     Some(token) => {
                         if token.is_empty() {
-                            oauth::oauth();
+                            handler::oauth::oauth();
                         }
-                        cli::echo_username(token.as_str());
+                        handler::cli::login(token.as_str()).unwrap();
                     }
-                    None => oauth::oauth(),
+                    None => handler::oauth::oauth(),
                 },
             },
             Err(err) => {
-                println!("Failed to read configuration file - {}", err)
+                error!("Failed to read configuration file - {}", err)
             }
         }
-
-        Ok(())
     }
 
     /// join slack channel
     fn join(channel: String) {
-        cli::join(channel);
+        handler::cli::join(channel);
     }
 
     /// Open Koifish site
     fn open(channel: String) {
-        cli::open(channel);
+        handler::cli::open(channel);
     }
 
     /// Start a meeting
     fn meeting() {
-        cli::meeting();
+        handler::cli::meeting();
     }
 
     /// Upgrade koifish
-    fn upgrade(re_oauth: bool, verbose: bool) -> std::io::Result<()> {
+    fn upgrade(re_oauth: bool, more: bool) -> std::io::Result<()> {
         println!("Koifish is upgrading...");
 
         if re_oauth {
-            oauth::oauth();
+            handler::oauth::oauth();
         }
 
         match Config::new().read() {
             Ok(config) => match config.oauth {
                 Oauth { token, .. } => match token {
-                    None => oauth::oauth(),
+                    None => handler::oauth::oauth(),
                     Some(token) => {
                         if token.is_empty() {
-                            oauth::oauth();
+                            handler::oauth::oauth();
                         }
-                        cli::echo_username(token.as_str());
-                        cli::upgrade(token.as_str(), verbose);
+                        handler::cli::login(token.as_str()).unwrap();
+                        handler::cli::upgrade(token.as_str(), more);
                     }
                 },
             },
             Err(err) => {
-                println!("Failed to read configuration file - {}", err)
+                error!("Failed to read configuration file - {}", err)
             }
         }
-
         Ok(())
     }
 }

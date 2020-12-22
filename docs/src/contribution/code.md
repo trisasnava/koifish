@@ -1,6 +1,6 @@
 # Codes contribution
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/trisasnava/koifish)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://GITHUB.com/trisasnava/koifish)
 
 1. Install rust
 
@@ -11,7 +11,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 2. Clone source code from GitHub
 
 ```shell script
-git clone git@github.com:trisasnava/koifish.git
+git clone git@GITHUB.com:trisasnava/koifish.git
 ``` 
 
 3. Write your rust code under `src`

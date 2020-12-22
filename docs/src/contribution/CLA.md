@@ -2,7 +2,7 @@
 
 ﻿**Contributor License Agreement**
 
-Please sign CLA before contributing to [trisasnava/koifish](https://github.com/trisasnava/koifish) 
+Please sign CLA before contributing to [trisasnava/koifish](https://GITHUB.com/trisasnava/koifish) 
 | Version: 2020-05-07 
 
 The document below clarifies the terms under which you, the person listed

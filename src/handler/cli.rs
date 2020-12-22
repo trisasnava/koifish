@@ -3,9 +3,9 @@ extern crate dirs;
 use std::path::Path;
 use std::{env, fs};
 
-use console::Emoji;
 use github_rs::client::{Executor, Github};
-use github_rs::headers::etag;
+use log::error;
+use log::info;
 use serde_json::Value;
 use webbrowser;
 
@@ -14,26 +14,14 @@ use crate::utils::network;
 use crate::utils::Counter;
 
 /// Echo GitHub user name for koifish CLI
-pub fn echo_username(token: &str) -> Result<(), reqwest::Error> {
+pub fn login(token: &str) -> Result<(), reqwest::Error> {
     let client = Github::new(token).unwrap();
     let me = client.get().user().execute::<Value>();
     match me {
-        Ok((headers, _, json)) => {
-            if let Some(etag) = etag(&headers) {
-                client
-                    .get()
-                    .set_etag(etag)
-                    .user()
-                    .execute::<Value>()
-                    .unwrap();
-            }
-
+        Ok((_, _, json)) => {
             if let Some(json) = json {
-                println!(
-                    "Login successful - [Hi,{},I am {}]",
-                    json["name"],
-                    Emoji("🐠 ", "Koi")
-                );
+                println!("Login successful!");
+                println!("Hi,{},I am Koifish", json["name"].as_str().unwrap());
             }
         }
         Err(e) => {
@@ -41,7 +29,7 @@ pub fn echo_username(token: &str) -> Result<(), reqwest::Error> {
             Counter::new(20)
                 .count()
                 .msg("Login failed, please check the network and try again.");
-            echo_username(token).unwrap();
+            login(token).unwrap();
         }
     }
     Ok(())
@@ -49,78 +37,66 @@ pub fn echo_username(token: &str) -> Result<(), reqwest::Error> {
 
 /// Open some link in browser for koifish CLI
 pub fn open(channel: String) {
-    let github = "https://github.com/trisasnava";
-    let website = "https://trisasnava.org";
-    let docs = "https://trisasnava.org/koifish";
+    const GITHUB: &str = "https://GITHUB.com/trisasnava";
+    const WEBSITE: &str = "https://trisasnava.org";
+    const DOCS: &str = "https://trisasnava.org/koifish";
 
     match channel.as_str() {
-        "github" => {
-            if webbrowser::open(github).is_ok() {
-                println!("Open {:?} successful !", channel);
-            } else {
-                println!("Open {:?} failure !", channel);
-            };
-        }
-        "website" => {
-            if webbrowser::open(website).is_ok() {
-                println!("Open {:?} successful !", channel);
-            } else {
-                println!("Open {:?} failure !", channel);
+        "GITHUB" => {
+            if webbrowser::open(GITHUB).is_err() {
+                error!("Open {:?} failure !", channel);
             }
         }
-        "docs" => {
-            if webbrowser::open(docs).is_ok() {
-                println!("Open {:?} successful !", channel);
-            } else {
-                println!("Open {:?} failure !", channel);
-            };
+        "WEBSITE" => {
+            if webbrowser::open(WEBSITE).is_err() {
+                error!("Open {:?} failure !", channel);
+            }
+        }
+        "DOCS" => {
+            if webbrowser::open(DOCS).is_err() {
+                error!("Open {:?} failure !", channel);
+            }
         }
         _ => {
-            println!("Open {:?} failure !", channel);
+            error!("Open {:?} failure !", channel);
         }
     }
 }
 
 /// Join koifish channel in koifish CLI
 pub fn join(channel: String) {
-    let slack = "https://trisasnava.slack.com/join/shared_invite/enQtODg1NjI0NTc1NzAz\
+    const SLACK: &str = "https://trisasnava.SLACK.com/join/shared_invite/enQtODg1NjI0NTc1NzAz\
     LTBjYTM1YjQxZWZkMTExYTBlNTcxNjQzYTc0MjRmNDNjMmIxZmMwZjM5ODFkZWExNjJkNWMwZWRjOGJlODdiM2Q";
-    let discord = "https://discord.gg/FztbBXbq";
+    const DISCORD: &str = "https://DISCORD.gg/FztbBXbq";
 
     match channel.as_str() {
-        "slack" => {
-            if webbrowser::open(slack).is_ok() {
-                println!("Open {:?} successful !", channel);
-            } else {
-                println!("Open {:?} failure !", channel);
+        "SLACK" => {
+            if webbrowser::open(SLACK).is_err() {
+                error!("Open {:?} failure !", channel);
             }
         }
-        "discord" => {
-            if webbrowser::open(discord).is_ok() {
-                println!("Open {:?} successful !", channel);
-            } else {
-                println!("Open {:?} failure !", channel);
+        "DISCORD" => {
+            if webbrowser::open(DISCORD).is_err() {
+                error!("Open {:?} failure !", channel);
             }
         }
         _ => {
-            println!("Open {:?} failure !", channel);
+            error!("Open {:?} failure !", channel);
         }
     }
 }
 
 /// Start a meeting with koifish CLI
 pub fn meeting() {
-    let meet = "https://meet.jit.si/koi";
+    const MEET: &str = "https://MEET.jit.si/koi";
 
-    if webbrowser::open(meet).is_ok() {
-        println!("Open Meet successful !");
-    } else {
-        println!("Open Meet failure !");
+    if webbrowser::open(MEET).is_err() {
+        error!("Open Meet failure !");
     }
 }
 
 /// Upgrade tool for koifish
-pub fn upgrade(token: &str, verbose: bool) {
+pub fn upgrade(token: &str, more: bool) {
     let client = Github::new(token).unwrap();
     let release = client
         .get()
@@ -128,16 +104,7 @@ pub fn upgrade(token: &str, verbose: bool) {
         .execute::<Value>();
 
     match release {
-        Ok((headers, _, json_value)) => {
-            if let Some(etag) = etag(&headers) {
-                client
-                    .get()
-                    .set_etag(etag)
-                    .custom_endpoint("repos/trisasnava/koifish/releases/latest")
-                    .execute::<Value>()
-                    .unwrap();
-            }
-
+        Ok((_headers, _, json_value)) => {
             if let Some(latest) = json_value {
                 if latest["assets"].is_array() {
                     let list = latest["assets"].as_array().unwrap();
@@ -146,8 +113,8 @@ pub fn upgrade(token: &str, verbose: bool) {
                         match release["name"].as_str() {
                             Some(os) => {
                                 if os.contains(std::env::consts::OS) {
-                                    if verbose {
-                                        echo_release(&latest, &release);
+                                    if more {
+                                        print_release(&latest, &release);
                                     }
 
                                     // download bin file
@@ -155,7 +122,18 @@ pub fn upgrade(token: &str, verbose: bool) {
                                         release["browser_download_url"].as_str().unwrap();
                                     let tmp_file = Path::new(dirs::cache_dir().unwrap().as_path())
                                         .join(release["name"].as_str().unwrap());
-                                    network::download_form_github(download_url, &*tmp_file);
+
+                                    match network::download_form_github(download_url, &*tmp_file) {
+                                        Ok(..) => {
+                                            info!("Successfully downloaded the binary from github")
+                                        }
+                                        Err(err) => {
+                                            println!(
+                                                "Failed to download binary from github - [{}]",
+                                                err
+                                            )
+                                        }
+                                    }
 
                                     let bak_file = Path::new(dirs::cache_dir().unwrap().as_path())
                                         .join("koi.bak");
@@ -170,14 +148,15 @@ pub fn upgrade(token: &str, verbose: bool) {
                                             fs::rename(
                                                 bak_file,
                                                 env::current_exe().unwrap().as_path(),
-                                            );
-                                            println!("ERROR,{}", e);
+                                            )
+                                            .unwrap();
+                                            error!("Self replace  error - {}", e);
                                         }
                                     }
                                 }
                             }
                             None => {
-                                println!("No corresponding version found!");
+                                println!("No matching version!");
                             }
                         }
                     }
@@ -189,12 +168,12 @@ pub fn upgrade(token: &str, verbose: bool) {
             Counter::new(20)
                 .count()
                 .msg("Upgrade failed, please check the network and try again.");
-            upgrade(token, verbose);
+            upgrade(token, more);
         }
     }
 }
 
-fn echo_release(latest: &Value, release: &Value) {
+fn print_release(latest: &Value, release: &Value) {
     println!(
         "OS: \"{}({})\"",
         std::env::consts::OS,

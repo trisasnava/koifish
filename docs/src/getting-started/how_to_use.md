@@ -17,10 +17,10 @@ FLAGS:
 
 SUBCOMMANDS:
     help       Prints this message or the help of the given subcommand(s)
-    join       join our slack channel
+    join       join our SLACK channel
     login      verify login via GitHub Oauth
-    meet       start a meeting with https://meet.jit.si/koi
-    open       open koifish github|website|docs
+    MEET       start a meeting with https://MEET.jit.si/koi
+    open       open koifish GITHUB|WEBSITE|DOCS
     upgrade    upgrade tool for Koifish
 ```
 
@@ -54,20 +54,20 @@ using your default browser
 koi open -h
 
 USAGE:
-    koi open [github | website | docs] 
+    koi open [GITHUB | WEBSITE | DOCS] 
 
 FLAGS:
     -h, --help       Prints help information
     -V, --version    Prints version information
 
 ARGS:
-    <channel>     [default: docs]
+    <channel>     [default: DOCS]
 
 ``` 
 
 ## join
 
-Join Koifish slack channel
+Join Koifish SLACK channel
 
 ```shell script
 koi join -h 
@@ -81,15 +81,15 @@ FLAGS:
 
 ```
 
-## meet
+## MEET
 
-Start a meeting with https://meet.jit.si/koi
+Start a meeting with https://MEET.jit.si/koi
 
 ```shell script
-koi meet -h
+koi MEET -h
 
 USAGE:
-    koi meet
+    koi MEET
 
 FLAGS:
     -h, --help       Prints help information
@@ -121,6 +121,6 @@ FLAGS:
 
 - [Contribute code](../contribution/code.md)
 
-- [Contribute docs](../contribution/docs.md)
+- [Contribute DOCS](../contribution/DOCS.md)
 
 - [FAQ](../FAQ.md)

@@ -25,12 +25,8 @@ impl Koifish {
             Koifish { debug, fish } => {
                 if debug {
                     match Logger::level("debug") {
-                        Ok(logger) => {
-                            info!("Log path [{}]", logger.log_path.display())
-                        }
-                        Err(_e) => {
-                            error!("Logger setup error!")
-                        }
+                        Ok(logger) => info!("Log path [{}]", logger.log_path.display()),
+                        Err(_e) => error!("Logger setup error!"),
                     };
                 }
                 Fish::run(fish);
@@ -113,9 +109,7 @@ impl Fish {
                     None => handler::oauth::oauth(),
                 },
             },
-            Err(err) => {
-                error!("Failed to read configuration file - {}", err)
-            }
+            Err(err) => error!("Failed to read configuration file - {}", err),
         }
     }
 
@@ -155,9 +149,7 @@ impl Fish {
                     }
                 },
             },
-            Err(err) => {
-                error!("Failed to read configuration file - {}", err)
-            }
+            Err(err) => error!("Failed to read configuration file - {}", err),
         }
         Ok(())
     }

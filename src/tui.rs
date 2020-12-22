@@ -3,8 +3,8 @@ use std::io;
 use tui::backend::CrosstermBackend;
 use tui::layout::{Constraint, Direction, Layout};
 use tui::style::{Color, Style};
-use tui::widgets::{Block, BorderType, Borders};
 use tui::Terminal;
+use tui::widgets::{Block, Borders, BorderType};
 
 pub fn draw() -> Result<(), io::Error> {
     let stdout = io::stdout();
@@ -12,7 +12,7 @@ pub fn draw() -> Result<(), io::Error> {
     let mut terminal = Terminal::new(backend)?;
 
     loop {
-        terminal.draw(|f| {
+        terminal.draw(|mut f| {
             let block = Block::default()
                 .borders(Borders::ALL)
                 .title("[ Koifish ]")

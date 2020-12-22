@@ -68,9 +68,7 @@ impl Config {
             Ok(contents) => {
                 std::fs::write(config.path.as_path(), contents).unwrap();
             }
-            Err(err) => {
-                println!("Failed to save token - [{}]", err)
-            }
+            Err(err) => println!("Failed to save token - [{}]", err),
         }
         Ok(())
     }

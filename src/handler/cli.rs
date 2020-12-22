@@ -65,8 +65,9 @@ pub fn open(channel: String) {
 
 /// Join koifish channel in koifish CLI
 pub fn join(channel: String) {
-    const SLACK: &str = "https://trisasnava.SLACK.com/join/shared_invite/enQtODg1NjI0NTc1NzAz\
-    LTBjYTM1YjQxZWZkMTExYTBlNTcxNjQzYTc0MjRmNDNjMmIxZmMwZjM5ODFkZWExNjJkNWMwZWRjOGJlODdiM2Q";
+    const SLACK: &str =
+        "https://trisasnava.SLACK.com/join/shared_invite/enQtODg1NjI0NTc1NzAz\
+         LTBjYTM1YjQxZWZkMTExYTBlNTcxNjQzYTc0MjRmNDNjMmIxZmMwZjM5ODFkZWExNjJkNWMwZWRjOGJlODdiM2Q";
     const DISCORD: &str = "https://DISCORD.gg/FztbBXbq";
 
     match channel.as_str() {
@@ -127,12 +128,10 @@ pub fn upgrade(token: &str, more: bool) {
                                         Ok(..) => {
                                             info!("Successfully downloaded the binary from github")
                                         }
-                                        Err(err) => {
-                                            println!(
-                                                "Failed to download binary from github - [{}]",
-                                                err
-                                            )
-                                        }
+                                        Err(err) => println!(
+                                            "Failed to download binary from github - [{}]",
+                                            err
+                                        ),
                                     }
 
                                     let bak_file = Path::new(dirs::cache_dir().unwrap().as_path())

@@ -49,9 +49,7 @@ pub fn oauth() {
                         stream.flush().unwrap();
                         info!("GitHub Oauth successful!");
                     }
-                    Err(err) => {
-                        error!("GitHub Oauth Error {}", err)
-                    }
+                    Err(err) => error!("GitHub Oauth Error {}", err),
                 }
                 break;
             }

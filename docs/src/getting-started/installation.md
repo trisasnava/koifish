@@ -12,7 +12,7 @@ cargo install koifish
 
 ## Binary
 
-Download from [release](https://github.com/trisasnava/koifish/releases/latest) and to `PATH`
+Download from [release](https://GITHUB.com/trisasnava/koifish/releases/latest) and to `PATH`
 
 ## Other
 
@@ -26,6 +26,6 @@ TODO
 
 - [Contribute code](../contribution/code.md)
 
-- [Contribute docs](../contribution/docs.md)
+- [Contribute DOCS](../contribution/DOCS.md)
 
 - [FAQ](../FAQ.md)

@@ -2,23 +2,24 @@
 name = "koifish"
 version = "0.0.5"
 authors = ["francis-du <francis@francisdu.com>"]
-keywords = ["cli", "tui", "github"]
+keywords = ["cli", "tui", "GITHUB"]
 edition = "2018"
 license = "Apache-2.0"
 description = "Koifish"
 readme = "README.md"
 homepage = "https://trisasnava.org/koifish"
 documentation = "https://trisasnava.org/koifish"
-repository = "https://github.com/trisasnava/koifish"
+repository = "https://GITHUB.com/trisasnava/koifish"
 
 [[bin]]
 name = "koi"
 path = "src/main.rs"
 
 [dependencies]
+log = "0.4.11"
+fern = "0.5"
 toml = "0.5.6"
 chrono = "0.4"
-console = "0.11.3"
 webbrowser = "0.5.5"
 dirs = "3.0.1"
 serde_json = "1.0"
@@ -26,12 +27,12 @@ serde_derive = "0.9"
 serde = { version = "1.0.110", features = ["derive"] }
 paw = "1.0"
 indicatif = "0.15.0"
-#error-chain = "0.12.4"
+crossterm = "0.17"
+tui = { version = "0.10", default-features = false, features = ['crossterm'] }
 
 structopt = { version = "0.3", features = ["paw"] }
 reqwest = { version = "0.10", features = ["json"] }
 tokio = { version = "0.2", features = ["macros"] }
-tui = { version = "0.9", default-features = false, features = ['crossterm'] }
 
 [dependencies.github-rs]
 version = "0.7"

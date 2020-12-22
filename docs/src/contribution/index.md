@@ -2,7 +2,7 @@
 
 ![contribution process](../images/contribution-process.png)
 
-[![Contribute Now](https://img.shields.io/badge/Contribute%20Now%20%20=>-orange?style=for-the-badge&color=%23E5531A)](https://gitpod.io/#https://github.com/trisasnava/koifish)
+[![Contribute Now](https://img.shields.io/badge/Contribute%20Now%20%20=>-orange?style=for-the-badge&color=%23E5531A)](https://gitpod.io/#https://GITHUB.com/trisasnava/koifish)
 
 ## Related Links
 
@@ -12,6 +12,6 @@
 
 - [Contribute code](./code.md)
 
-- [Contribute docs](./docs.md)
+- [Contribute DOCS](./DOCS.md)
 
 - [FAQ](../FAQ.md)

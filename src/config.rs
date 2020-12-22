@@ -20,10 +20,6 @@ impl Oauth {
             datetime: Option::from(chrono::offset::Local::now().to_string()),
         }
     }
-
-    pub fn get_token(&self) -> &Option<String> {
-        &self.token
-    }
 }
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -64,13 +60,13 @@ impl Config {
 
     /// Save GitHub token to toml file
     pub fn save_token(platform: &str, token: &str) -> std::io::Result<()> {
-        let mut config = Config::new();
+        let config = Config::new();
 
         let toml = toml::to_string(&Oauth::new(platform, token));
 
         match toml {
             Ok(contents) => {
-                std::fs::write(config.path.as_path(), contents);
+                std::fs::write(config.path.as_path(), contents).unwrap();
             }
             Err(err) => {
                 println!("Failed to save token - [{}]", err)

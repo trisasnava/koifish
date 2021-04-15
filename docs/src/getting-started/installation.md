@@ -26,6 +26,6 @@ TODO
 
 - [Contribute code](../contribution/code.md)
 
-- [Contribute DOCS](../contribution/DOCS.md)
+- [Contribute docs](../contribution/docs.md)
 
 - [FAQ](../FAQ.md)

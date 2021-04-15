@@ -11,7 +11,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 2. Clone source code from GitHub
 
 ```shell script
-git clone git@GITHUB.com:trisasnava/koifish.git
+git clone git@github.com:trisasnava/koifish.git
 ``` 
 
 3. Write your rust code under `src`
@@ -19,7 +19,7 @@ git clone git@GITHUB.com:trisasnava/koifish.git
 ```
 > tree src
 
-KOIFISH\SRC
+koifish\src
     ├─handler
     ├─model
     ├─static

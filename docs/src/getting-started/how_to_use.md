@@ -6,22 +6,24 @@
 > koi -h
 
     █▄▀ █▀█ ░ █▀▀ ░ █▀ █░█
-    █░█ █▄█ █ █▀▀ █ ▄█ █▀█   0.0.5
+    █░█ █▄█ █ █▀▀ █ ▄█ █▀█   0.0.6
 
 USAGE:
-    koi <SUBCOMMAND>
+    koi [FLAGS] <SUBCOMMAND>
 
 FLAGS:
+    -d, --debug      Activate debug mode
     -h, --help       Prints help information
     -V, --version    Prints version information
 
 SUBCOMMANDS:
     help       Prints this message or the help of the given subcommand(s)
-    join       join our SLACK channel
-    login      verify login via GitHub Oauth
-    MEET       start a meeting with https://MEET.jit.si/koi
-    open       open koifish GITHUB|WEBSITE|DOCS
-    upgrade    upgrade tool for Koifish
+    join       Join our slack/discord channel,default is slack
+    login      Verify login via GitHub Oauth
+    meet       Start a meeting  at https://meet.jit.si/koig
+    open       Open Koifish github/site/docs
+    upgrade    Upgrade Koifish from github release
+
 ```
 
 ## login
@@ -30,14 +32,14 @@ When you execute this command, koi will open your default browser.
 And it will oauth your GitHub token to save `$HOME/.koi` file.
   
 ```shell script
-koi login -h
+> koi login -h
 
 USAGE:
     koi login [FLAGS]
 
 FLAGS:
     -h, --help        Prints help information
-    -r, --re-oauth    re-oauth with GitHub
+    -r, --re-oauth    Re-oauth via github Oauth
     -V, --version     Prints version information
 ``` 
 
@@ -51,17 +53,17 @@ When you execute this command, koi will open this channel
 using your default browser 
 
 ```shell script
-koi open -h
+> koi open -h
 
 USAGE:
-    koi open [GITHUB | WEBSITE | DOCS] 
+    koi open [channel]
 
 FLAGS:
     -h, --help       Prints help information
     -V, --version    Prints version information
 
 ARGS:
-    <channel>     [default: DOCS]
+    <channel>     [default: docs]
 
 ``` 
 
@@ -70,26 +72,28 @@ ARGS:
 Join Koifish SLACK channel
 
 ```shell script
-koi join -h 
+> koi join -h 
 
 USAGE:
-    koi join
+    koi join [channel]
 
 FLAGS:
     -h, --help       Prints help information
     -V, --version    Prints version information
 
+ARGS:
+    <channel>    Join our slack/discord channel [default: slack]
 ```
 
-## MEET
+## meet
 
 Start a meeting with https://MEET.jit.si/koi
 
 ```shell script
-koi MEET -h
+> koi meet -h
 
 USAGE:
-    koi MEET
+    koi meet
 
 FLAGS:
     -h, --help       Prints help information
@@ -101,16 +105,16 @@ FLAGS:
 Upgrade Koifish to latest version
 
 ```shell script
-koi upgrade -h
+> koi upgrade -h
 
 USAGE:
     koi upgrade [FLAGS]
 
 FLAGS:
     -h, --help        Prints help information
-    -r, --re-oauth    re-oauth with GitHub
+    -r, --re-oauth    Re-oauth via github Oauth
     -V, --version     Prints version information
-    -v, --verbose     release notes verbose output
+    -v, --verbose     Release notes verbose output
 ```
 
 ## Related Links
@@ -121,6 +125,6 @@ FLAGS:
 
 - [Contribute code](../contribution/code.md)
 
-- [Contribute DOCS](../contribution/DOCS.md)
+- [Contribute docs](../contribution/docs.md)
 
 - [FAQ](../FAQ.md)

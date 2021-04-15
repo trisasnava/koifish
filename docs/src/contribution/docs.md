@@ -17,15 +17,15 @@ cargo install mdbook
 3. Clone source code from GitHub
 
 ```shell script
-git clone git@GITHUB.com:trisasnava/koifish.git
+git clone git@github.com:trisasnava/koifish.git
 ```
  
-4.  Write DOCS under the `DOCS/src` using Markdown
+4.  Write docs under the `docs/src` using Markdown
 
 ```
-> tree DOCS/src
+> tree docs/src
 
-KOIFISH\DOCS\SRC
+koifish\docs\src
     ├─contribution
     ├─getting-started
     ├─images
@@ -36,7 +36,7 @@ KOIFISH\DOCS\SRC
 5. Read [![Code of conduct](https://img.shields.io/badge/code%20of%20conduct-orange?style=for-the-badge&color=%23E5531A)](./CODE_OF_CONDUCT.md)
    and [![Sign the CLA](https://img.shields.io/badge/Sign%20the%20CLA-orange?style=for-the-badge&color=%23E5531A)](./CLA.md)
 
-6. Run `mdbook serve DOCS` and to preview DOCS
+6. Run `mdbook serve docs` and to preview dcos
 
 7. Submit a pull request(PR)
 

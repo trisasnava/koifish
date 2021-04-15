@@ -37,22 +37,22 @@ pub fn login(token: &str) -> Result<(), reqwest::Error> {
 
 /// Open some link in browser for koifish CLI
 pub fn open(channel: String) {
-    const GITHUB: &str = "https://GITHUB.com/trisasnava";
+    const GITHUB: &str = "https://github.com/trisasnava";
     const WEBSITE: &str = "https://trisasnava.org";
     const DOCS: &str = "https://trisasnava.org/koifish";
 
     match channel.as_str() {
-        "GITHUB" => {
+        "github" => {
             if webbrowser::open(GITHUB).is_err() {
                 error!("Open {:?} failure !", channel);
             }
         }
-        "WEBSITE" => {
+        "site" => {
             if webbrowser::open(WEBSITE).is_err() {
                 error!("Open {:?} failure !", channel);
             }
         }
-        "DOCS" => {
+        "docs" => {
             if webbrowser::open(DOCS).is_err() {
                 error!("Open {:?} failure !", channel);
             }
@@ -71,12 +71,12 @@ pub fn join(channel: String) {
     const DISCORD: &str = "https://DISCORD.gg/FztbBXbq";
 
     match channel.as_str() {
-        "SLACK" => {
+        "slack" => {
             if webbrowser::open(SLACK).is_err() {
                 error!("Open {:?} failure !", channel);
             }
         }
-        "DISCORD" => {
+        "discords" => {
             if webbrowser::open(DISCORD).is_err() {
                 error!("Open {:?} failure !", channel);
             }
@@ -89,7 +89,7 @@ pub fn join(channel: String) {
 
 /// Start a meeting with koifish CLI
 pub fn meeting() {
-    const MEET: &str = "https://MEET.jit.si/koi";
+    const MEET: &str = "https://meet.jit.si/koi";
 
     if webbrowser::open(MEET).is_err() {
         error!("Open Meet failure !");
@@ -97,7 +97,7 @@ pub fn meeting() {
 }
 
 /// Upgrade tool for koifish
-pub fn upgrade(token: &str, more: bool) {
+pub fn upgrade(token: &str, verbose: bool) {
     let client = Github::new(token).unwrap();
     let release = client
         .get()
@@ -114,7 +114,7 @@ pub fn upgrade(token: &str, more: bool) {
                         match release["name"].as_str() {
                             Some(os) => {
                                 if os.contains(std::env::consts::OS) {
-                                    if more {
+                                    if verbose {
                                         print_release(&latest, &release);
                                     }
 
@@ -167,7 +167,7 @@ pub fn upgrade(token: &str, more: bool) {
             Counter::new(20)
                 .count()
                 .msg("Upgrade failed, please check the network and try again.");
-            upgrade(token, more);
+            upgrade(token, verbose);
         }
     }
 }

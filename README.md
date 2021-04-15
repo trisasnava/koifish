@@ -48,22 +48,24 @@ Download from [release](https://github.com/trisasnava/koifish/releases/latest) a
 > koi -h
 
     █▄▀ █▀█ ░ █▀▀ ░ █▀ █░█
-    █░█ █▄█ █ █▀▀ █ ▄█ █▀█   0.0.5
+    █░█ █▄█ █ █▀▀ █ ▄█ █▀█   0.0.6
 
 USAGE:
-    koi <SUBCOMMAND>
+    koi [FLAGS] <SUBCOMMAND>
 
 FLAGS:
+    -d, --debug      Activate debug mode
     -h, --help       Prints help information
     -V, --version    Prints version information
 
 SUBCOMMANDS:
     help       Prints this message or the help of the given subcommand(s)
-    join       join our SLACK channel
-    login      verify login via GitHub Oauth
-    MEET       start a meeting with https://MEET.jit.si/koi
-    open       open koifish GITHUB|WEBSITE|DOCS
-    upgrade    upgrade tool for Koifish
+    join       Join our slack/discord channel,default is slack
+    login      Verify login via GitHub Oauth
+    meet       Start a meeting  at https://meet.jit.si/koig
+    open       Open Koifish github/site/docs
+    upgrade    Upgrade Koifish from github release
+
 ```
 
 ## Contributing
@@ -74,9 +76,9 @@ SUBCOMMANDS:
 
 - [Contribute code](DOCS/src/contribution/code.md)
 
-- [Contribute DOCS](DOCS/src/contribution/DOCS.md)
+- [Contribute docs](DOCS/src/contribution/DOCS.md)
 
-- [FAQ](DOCS/src/FAQ.md)
+- [FAQ](docs/src/FAQ.md)
 
 [![Contribute Now](https://img.shields.io/badge/Contribute-now-a94064?style=for-the-badge&color=%23E5531A)](https://gitpod.io/#https://GITHUB.com/trisasnava/koifish)
 

@@ -39,32 +39,32 @@ impl Koifish {
 enum Fish {
     /// Verify login via GitHub Oauth
     Login {
-        /// Re-oauth via GitHub Oauth
+        /// Re-oauth via github Oauth
         #[structopt(short, long)]
         re_oauth: bool,
     },
-    /// Join our Slack/Discord channel,default is Slack
+    /// Join our slack/discord channel,default is slack
     Join {
-        /// Join our Slack/Discord channel
+        /// Join our slack/discord channel
         #[structopt(default_value = "slack")]
         channel: String,
     },
-    /// Open Koifish GitHub/Website/Docs
+    /// Open Koifish github/site/docs
     Open {
         #[structopt(default_value = "docs")]
         channel: String,
     },
     /// Start a meeting  at https://meet.jit.si/koig
-    Meeting,
-    /// Upgrade Koifish from GitHub Release
+    Meet,
+    /// Upgrade Koifish from github release
     Upgrade {
-        /// Re-oauth via GitHub Oauth
+        /// Re-oauth via github Oauth
         #[structopt(short, long)]
         re_oauth: bool,
 
         /// Release notes verbose output
         #[structopt(short, long)]
-        more: bool,
+        verbose: bool,
     },
 }
 
@@ -80,11 +80,11 @@ impl Fish {
             Fish::Open { channel } => {
                 Self::open(channel);
             }
-            Fish::Meeting => {
+            Fish::Meet => {
                 Self::meeting();
             }
-            Fish::Upgrade { re_oauth, more } => {
-                Self::upgrade(re_oauth, more).unwrap();
+            Fish::Upgrade { re_oauth, verbose } => {
+                Self::upgrade(re_oauth, verbose).unwrap();
             }
         }
     }
@@ -129,7 +129,7 @@ impl Fish {
     }
 
     /// Upgrade koifish
-    fn upgrade(re_oauth: bool, more: bool) -> std::io::Result<()> {
+    fn upgrade(re_oauth: bool, verbose: bool) -> std::io::Result<()> {
         println!("Koifish is upgrading...");
 
         if re_oauth {
@@ -145,7 +145,7 @@ impl Fish {
                             handler::oauth::oauth();
                         }
                         handler::cli::login(token.as_str()).unwrap();
-                        handler::cli::upgrade(token.as_str(), more);
+                        handler::cli::upgrade(token.as_str(), verbose);
                     }
                 },
             },

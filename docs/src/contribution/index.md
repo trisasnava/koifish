@@ -12,6 +12,6 @@
 
 - [Contribute code](./code.md)
 
-- [Contribute DOCS](./DOCS.md)
+- [Contribute docs](./docs.md)
 
 - [FAQ](../FAQ.md)

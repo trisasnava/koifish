@@ -6,12 +6,12 @@
 
 ## Related Links
 
-- [Code of conduct](./CODE_OF_CONDUCT.md)
+- [Code of conduct](CODE_OF_CONDUCT.md)
 
-- [Sign the CLA](./CLA.md)
+- [Sign the CLA](CLA.md)
 
-- [Contribute code](./code.md)
+- [Contribute code](code.md)
 
-- [Contribute docs](./docs.md)
+- [Contribute docs](docs.md)
 
 - [FAQ](../FAQ.md)

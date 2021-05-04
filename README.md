@@ -59,12 +59,11 @@ FLAGS:
     -V, --version    Prints version information
 
 SUBCOMMANDS:
-    help       Prints this message or the help of the given subcommand(s)
-    join       Join our slack/discord channel,default is slack
-    login      Verify login via GitHub Oauth
-    meet       Start a meeting  at https://meet.jit.si/koig
-    open       Open Koifish github/site/docs
-    upgrade    Upgrade Koifish from github release
+    help      Prints this message or the help of the given subcommand(s)
+    login     Log in via GitHub Oauth
+    meet      Start a online meeting via https://meet.jit.si/
+    open      Open channels "docs,github,site,slack,discord"
+    update    Update from GitHub release
 
 ```
 

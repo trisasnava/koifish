@@ -30,9 +30,9 @@ A toolchain for community collaboration.
 
 ## Related Links
 
-- [Installation](./installation.md)
+- [Installation](installation.md)
 
-- [How to use](./how_to_use.md)
+- [How to use](how_to_use.md)
 
 - [Code of conduct](../contribution/CODE_OF_CONDUCT.md)
 
@@ -44,4 +44,4 @@ A toolchain for community collaboration.
 
 - [FAQ](../FAQ.md)
 
-- [License](./LICENSE.html)
+- [License](LICENSE.html)

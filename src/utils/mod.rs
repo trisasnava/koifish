@@ -2,19 +2,26 @@ use std::path::Path;
 
 use serde::Deserialize;
 use serde::Serialize;
-
+use std::env::current_exe;
 pub mod network;
 
+/// Self replace
 pub fn self_replace(source_file: &Path, bak_file: &Path) -> std::io::Result<()> {
     use std::{env, fs};
     if source_file.exists() {
         if cfg!(windows) {
-            fs::rename(env::current_exe().unwrap().as_path(), bak_file)?;
-            fs::rename(source_file, env::current_exe().unwrap().as_path())?
+            fs::rename(current_exe().unwrap().as_path(), bak_file)?;
+            fs::rename(source_file, current_exe().unwrap().as_path())?;
         }
         if cfg!(unix) {
-            fs::rename(env::current_exe().unwrap().as_path(), bak_file)?;
-            fs::rename(source_file, env::current_exe().unwrap().as_path())?
+            fs::rename(current_exe().unwrap().as_path(), bak_file)?;
+            fs::copy(source_file, current_exe().unwrap().as_path())?;
+        }
+
+        if !env::current_exe().unwrap().as_path().exists() {
+            fs::rename(bak_file, current_exe().unwrap().as_path())?;
+        } else {
+            println!("Replace completed!")
         }
     }
     Ok(())
@@ -48,7 +55,7 @@ impl Counter {
 
     pub fn msg(&self, msg: &str) {
         if &self.total == &self.count {
-            println!("{}", msg);
+            println!("[Counter-{}]: {}", &self.count, msg);
             std::process::exit(1);
         }
     }

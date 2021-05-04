@@ -42,6 +42,6 @@ koifish\docs\src
 
 ## Related Links
 
-- [Code of conduct](./CODE_OF_CONDUCT.md)
+- [Code of conduct](CODE_OF_CONDUCT.md)
 
-- [Sign the CLA](./CLA.md)
+- [Sign the CLA](CLA.md)

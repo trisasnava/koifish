@@ -13,19 +13,20 @@ use crate::utils;
 use crate::utils::network;
 use crate::utils::Counter;
 
-/// Echo GitHub user name for koifish CLI
+/// Print login info
 pub fn login(token: &str) -> Result<(), reqwest::Error> {
     let client = Github::new(token).unwrap();
     let me = client.get().user().execute::<Value>();
     match me {
         Ok((_, _, json)) => {
             if let Some(json) = json {
-                println!("Login successful!");
-                println!("Hi,{},I am Koifish", json["name"].as_str().unwrap());
+                println!(
+                    "Login successful!\nHi,{},I am Koi",
+                    json["name"].as_str().unwrap()
+                );
             }
         }
-        Err(e) => {
-            println!("Login error, retrying - [{}]", e);
+        Err(_) => {
             Counter::new(20)
                 .count()
                 .msg("Login failed, please check the network and try again.");
@@ -40,6 +41,9 @@ pub fn open(channel: String) {
     const GITHUB: &str = "https://github.com/trisasnava";
     const WEBSITE: &str = "https://trisasnava.org";
     const DOCS: &str = "https://trisasnava.org/koifish";
+    const SLACK: &str =
+        "https://join.slack.com/t/trisasnava/shared_invite/zt-pzee45is-Xlqax8Oa3JC0T7rkqcr4xw";
+    const DISCORD: &str = "https://discord.gg/FztbBXbq";
 
     match channel.as_str() {
         "github" => {
@@ -52,52 +56,43 @@ pub fn open(channel: String) {
                 error!("Open {:?} failure !", channel);
             }
         }
+        "website" => {
+            if webbrowser::open(WEBSITE).is_err() {
+                error!("Open {:?} failure !", channel);
+            }
+        }
         "docs" => {
             if webbrowser::open(DOCS).is_err() {
                 error!("Open {:?} failure !", channel);
             }
         }
-        _ => {
-            error!("Open {:?} failure !", channel);
-        }
-    }
-}
-
-/// Join koifish channel in koifish CLI
-pub fn join(channel: String) {
-    const SLACK: &str =
-        "https://trisasnava.SLACK.com/join/shared_invite/enQtODg1NjI0NTc1NzAz\
-         LTBjYTM1YjQxZWZkMTExYTBlNTcxNjQzYTc0MjRmNDNjMmIxZmMwZjM5ODFkZWExNjJkNWMwZWRjOGJlODdiM2Q";
-    const DISCORD: &str = "https://DISCORD.gg/FztbBXbq";
-
-    match channel.as_str() {
         "slack" => {
             if webbrowser::open(SLACK).is_err() {
                 error!("Open {:?} failure !", channel);
             }
         }
-        "discords" => {
+        "discord" => {
             if webbrowser::open(DISCORD).is_err() {
                 error!("Open {:?} failure !", channel);
             }
         }
         _ => {
-            error!("Open {:?} failure !", channel);
+            error!("No such channel '{}'", channel);
         }
     }
 }
 
-/// Start a meeting with koifish CLI
+/// Start a online meeting
 pub fn meeting() {
     const MEET: &str = "https://meet.jit.si/koi";
 
     if webbrowser::open(MEET).is_err() {
-        error!("Open Meet failure !");
+        error!("Open Meeting failure !");
     }
 }
 
-/// Upgrade tool for koifish
-pub fn upgrade(token: &str, verbose: bool) {
+/// Update
+pub fn update(token: &str, verbose: bool) {
     let client = Github::new(token).unwrap();
     let release = client
         .get()
@@ -124,7 +119,11 @@ pub fn upgrade(token: &str, verbose: bool) {
                                     let tmp_file = Path::new(dirs::cache_dir().unwrap().as_path())
                                         .join(release["name"].as_str().unwrap());
 
-                                    match network::download_form_github(download_url, &*tmp_file) {
+                                    match network::download_form_github(
+                                        download_url,
+                                        &*tmp_file,
+                                        true,
+                                    ) {
                                         Ok(..) => {
                                             info!("Successfully downloaded the binary from github")
                                         }
@@ -140,7 +139,7 @@ pub fn upgrade(token: &str, verbose: bool) {
                                     // replace old bin file
                                     match utils::self_replace(&*tmp_file, bak_file.as_path()) {
                                         Ok(..) => println!(
-                                            "Upgrade to {}",
+                                            "Update to v{}",
                                             &latest["tag_name"].as_str().unwrap()
                                         ),
                                         Err(e) => {
@@ -163,11 +162,11 @@ pub fn upgrade(token: &str, verbose: bool) {
             }
         }
         Err(e) => {
-            println!("Upgrade error, retrying - [{}]", e);
+            println!("Update error, retrying - [{}]", e);
             Counter::new(20)
                 .count()
-                .msg("Upgrade failed, please check the network and try again.");
-            upgrade(token, verbose);
+                .msg("Update failed, please check the network and try again.");
+            update(token, verbose);
         }
     }
 }
@@ -178,7 +177,7 @@ fn print_release(latest: &Value, release: &Value) {
         std::env::consts::OS,
         release["name"].as_str().unwrap()
     );
-    println!("Date: {}", latest["created_at"]);
+    println!("Build time: {}", latest["created_at"]);
     println!(
         "Release version: \"Koi {}\"",
         latest["tag_name"].as_str().unwrap()

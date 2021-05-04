@@ -17,12 +17,11 @@ FLAGS:
     -V, --version    Prints version information
 
 SUBCOMMANDS:
-    help       Prints this message or the help of the given subcommand(s)
-    join       Join our slack/discord channel,default is slack
-    login      Verify login via GitHub Oauth
-    meet       Start a meeting  at https://meet.jit.si/koig
-    open       Open Koifish github/site/docs
-    upgrade    Upgrade Koifish from github release
+    help      Prints this message or the help of the given subcommand(s)
+    login     Log in via GitHub Oauth
+    meet      Start a online meeting via https://meet.jit.si/
+    open      Open channels "docs,github,site,slack,discord"
+    update    Update from GitHub release
 
 ```
 
@@ -63,31 +62,13 @@ FLAGS:
     -V, --version    Prints version information
 
 ARGS:
-    <channel>     [default: docs]
+    <channel>    Open channels "docs,github,site,slack,discord" [default: docs]
 
-``` 
-
-## join
-
-Join Koifish SLACK channel
-
-```shell script
-> koi join -h 
-
-USAGE:
-    koi join [channel]
-
-FLAGS:
-    -h, --help       Prints help information
-    -V, --version    Prints version information
-
-ARGS:
-    <channel>    Join our slack/discord channel [default: slack]
 ```
 
 ## meet
 
-Start a meeting with https://MEET.jit.si/koi
+Start a online meeting via https://meet.jit.si/
 
 ```shell script
 > koi meet -h
@@ -100,21 +81,22 @@ FLAGS:
     -V, --version    Prints version information
 ```
 
-## upgrade
+## update
 
-Upgrade Koifish to latest version
+Update Koifish
 
 ```shell script
-> koi upgrade -h
+> koi update -h
 
 USAGE:
-    koi upgrade [FLAGS]
+    koi update [FLAGS]
 
 FLAGS:
     -h, --help        Prints help information
-    -r, --re-oauth    Re-oauth via github Oauth
+    -r, --re-oauth    Re-oauth via GitHub Oauth
     -V, --version     Prints version information
     -v, --verbose     Release notes verbose output
+    
 ```
 
 ## Related Links

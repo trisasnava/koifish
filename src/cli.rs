@@ -37,28 +37,23 @@ impl Koifish {
 
 #[derive(Debug, PartialEq, StructOpt)]
 enum Fish {
-    /// Verify login via GitHub Oauth
+    /// Log in via GitHub Oauth
     Login {
-        /// Re-oauth via github Oauth
+        /// Re-oauth via GitHub Oauth
         #[structopt(short, long)]
         re_oauth: bool,
     },
-    /// Join our slack/discord channel,default is slack
-    Join {
-        /// Join our slack/discord channel
-        #[structopt(default_value = "slack")]
-        channel: String,
-    },
-    /// Open Koifish github/site/docs
+    /// Open channels "docs,github,site,slack,discord"
     Open {
+        /// Open channels "docs,github,site,slack,discord"
         #[structopt(default_value = "docs")]
         channel: String,
     },
-    /// Start a meeting  at https://meet.jit.si/koig
+    /// Start a online meeting via https://meet.jit.si/
     Meet,
-    /// Upgrade Koifish from github release
-    Upgrade {
-        /// Re-oauth via github Oauth
+    /// Update from GitHub release
+    Update {
+        /// Re-oauth via GitHub Oauth
         #[structopt(short, long)]
         re_oauth: bool,
 
@@ -74,24 +69,20 @@ impl Fish {
             Fish::Login { re_oauth } => {
                 Self::login(re_oauth);
             }
-            Fish::Join { channel } => {
-                Self::join(channel);
-            }
             Fish::Open { channel } => {
                 Self::open(channel);
             }
             Fish::Meet => {
                 Self::meeting();
             }
-            Fish::Upgrade { re_oauth, verbose } => {
-                Self::upgrade(re_oauth, verbose).unwrap();
+            Fish::Update { re_oauth, verbose } => {
+                Self::update(re_oauth, verbose).unwrap();
             }
         }
     }
 
-    /// login to GitHub
     fn login(re_oauth: bool) {
-        println!("Signing in with GitHub Oauth...");
+        println!("Login via GitHub Oauth...");
 
         if re_oauth {
             handler::oauth::oauth();
@@ -113,24 +104,19 @@ impl Fish {
         }
     }
 
-    /// join slack channel
-    fn join(channel: String) {
-        handler::cli::join(channel);
-    }
-
-    /// Open Koifish site
+    /// Open koifish channel
     fn open(channel: String) {
         handler::cli::open(channel);
     }
 
-    /// Start a meeting
+    /// Start a online meeting
     fn meeting() {
         handler::cli::meeting();
     }
 
-    /// Upgrade koifish
-    fn upgrade(re_oauth: bool, verbose: bool) -> std::io::Result<()> {
-        println!("Koifish is upgrading...");
+    /// Update koifish CLI
+    fn update(re_oauth: bool, verbose: bool) -> std::io::Result<()> {
+        println!("Koifish is updating...");
 
         if re_oauth {
             handler::oauth::oauth();
@@ -144,8 +130,7 @@ impl Fish {
                         if token.is_empty() {
                             handler::oauth::oauth();
                         }
-                        handler::cli::login(token.as_str()).unwrap();
-                        handler::cli::upgrade(token.as_str(), verbose);
+                        handler::cli::update(token.as_str(), verbose);
                     }
                 },
             },

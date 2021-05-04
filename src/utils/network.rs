@@ -1,10 +1,9 @@
+use indicatif::{ProgressBar, ProgressStyle};
 use std::cmp::min;
 use std::fs::File;
 use std::io::Write;
 use std::path::Path;
 use std::process::Command;
-
-use indicatif::{ProgressBar, ProgressStyle};
 
 #[tokio::main]
 pub async fn download_form_github(

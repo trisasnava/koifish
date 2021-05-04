@@ -43,6 +43,16 @@ enum Fish {
         #[structopt(short, long)]
         re_oauth: bool,
     },
+    /// Speed up git clone via `https://github.com.cnpmjs.org`
+    Clone {
+        /// Git repo url
+        #[structopt()]
+        url: String,
+
+        /// A path to save
+        #[structopt(default_value = ".")]
+        path: String,
+    },
     /// Open channels "docs,github,site,slack,discord"
     Open {
         /// Open channels "docs,github,site,slack,discord"
@@ -78,6 +88,9 @@ impl Fish {
             Fish::Update { re_oauth, verbose } => {
                 Self::update(re_oauth, verbose).unwrap();
             }
+            Fish::Clone { url, path } => {
+                Self::clone(url, path);
+            }
         }
     }
 
@@ -102,6 +115,11 @@ impl Fish {
             },
             Err(err) => error!("Failed to read configuration file - {}", err),
         }
+    }
+
+    /// Speed up git clone via `https://github.com.cnpmjs.org`
+    fn clone(url: String, path: String) {
+        handler::cli::clone(url, path);
     }
 
     /// Open koifish channel

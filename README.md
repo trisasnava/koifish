@@ -48,7 +48,7 @@ Download from [release](https://github.com/trisasnava/koifish/releases/latest) a
 > koi -h
 
     █▄▀ █▀█ ░ █▀▀ ░ █▀ █░█
-    █░█ █▄█ █ █▀▀ █ ▄█ █▀█   0.0.6
+    █░█ █▄█ █ █▀▀ █ ▄█ █▀█   0.0.7
 
 USAGE:
     koi [FLAGS] <SUBCOMMAND>
@@ -59,6 +59,7 @@ FLAGS:
     -V, --version    Prints version information
 
 SUBCOMMANDS:
+    clone     Speed up git clone via `https://github.com.cnpmjs.org`
     help      Prints this message or the help of the given subcommand(s)
     login     Log in via GitHub Oauth
     meet      Start a online meeting via https://meet.jit.si/

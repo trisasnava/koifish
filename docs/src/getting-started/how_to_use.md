@@ -6,7 +6,7 @@
 > koi -h
 
     █▄▀ █▀█ ░ █▀▀ ░ █▀ █░█
-    █░█ █▄█ █ █▀▀ █ ▄█ █▀█   0.0.6
+    █░█ █▄█ █ █▀▀ █ ▄█ █▀█   0.0.7
 
 USAGE:
     koi [FLAGS] <SUBCOMMAND>
@@ -17,6 +17,7 @@ FLAGS:
     -V, --version    Prints version information
 
 SUBCOMMANDS:
+    clone     Speed up git clone via `https://github.com.cnpmjs.org`
     help      Prints this message or the help of the given subcommand(s)
     login     Log in via GitHub Oauth
     meet      Start a online meeting via https://meet.jit.si/
@@ -45,6 +46,26 @@ FLAGS:
 When login successfully,it will redirect to this page.  
 
 ![](https://user-images.githubusercontent.com/25944814/89096743-62784780-d40b-11ea-8a50-8ec50e1ea550.png)
+
+## Clone
+
+Speed up git clone via `https://github.com.cnpmjs.org`
+
+```shell
+> koi clone -h
+
+USAGE:
+    koi clone <url> [path]
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+ARGS:
+    <url>     Git repo url
+    <path>    A path to save [default: .]
+
+```
 
 ## open
 

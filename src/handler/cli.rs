@@ -1,7 +1,6 @@
 extern crate dirs;
 
-use std::path::Path;
-use std::{env, fs};
+use std::path::{Path, PathBuf};
 
 use github_rs::client::{Executor, Github};
 use log::error;
@@ -12,6 +11,12 @@ use webbrowser;
 use crate::utils;
 use crate::utils::network;
 use crate::utils::Counter;
+use git2::build::{CheckoutBuilder, RepoBuilder};
+use git2::{FetchOptions, Progress, RemoteCallbacks};
+use std::cell::RefCell;
+use std::io::Write;
+use std::{env, fs, io};
+use url::Url;
 
 /// Print login info
 pub fn login(token: &str) -> Result<(), reqwest::Error> {
@@ -34,6 +39,115 @@ pub fn login(token: &str) -> Result<(), reqwest::Error> {
         }
     }
     Ok(())
+}
+
+struct State {
+    progress: Option<Progress<'static>>,
+    total: usize,
+    current: usize,
+    path: Option<PathBuf>,
+    newline: bool,
+}
+
+// TODO replace by Progress Bar
+fn progress(state: &mut State) {
+    let stats = state.progress.as_ref().unwrap();
+    let network_pct = (100 * stats.received_objects()) / stats.total_objects();
+    let index_pct = (100 * stats.indexed_objects()) / stats.total_objects();
+    let co_pct = if state.total > 0 {
+        (100 * state.current) / state.total
+    } else {
+        0
+    };
+    let kbytes = stats.received_bytes() / 1024;
+    if stats.received_objects() == stats.total_objects() {
+        if !state.newline {
+            println!();
+            state.newline = true;
+        }
+        print!(
+            "Resolving deltas {}/{}\r",
+            stats.indexed_deltas(),
+            stats.total_deltas()
+        );
+    } else {
+        print!(
+            "net {:3}% ({:4} kb, {:5}/{:5})  /  idx {:3}% ({:5}/{:5})  \
+             /  chk {:3}% ({:4}/{:4}) {}\r",
+            network_pct,
+            kbytes,
+            stats.received_objects(),
+            stats.total_objects(),
+            index_pct,
+            stats.indexed_objects(),
+            stats.total_objects(),
+            co_pct,
+            state.current,
+            state.total,
+            state
+                .path
+                .as_ref()
+                .map(|s| s.to_string_lossy().into_owned())
+                .unwrap_or_default()
+        )
+    }
+    io::stdout().flush().unwrap();
+}
+
+/// Speed up git clone via `https://github.com.cnpmjs.org`
+pub fn clone(url: String, path: String) {
+    match Url::parse(url.as_str()) {
+        Ok(url) => {
+            let new_url = format!("https://github.com.cnpmjs.org{}", url.path());
+
+            let project_name: Vec<_> = url.path_segments().map(|c| c.collect::<Vec<_>>()).unwrap()
+                [1]
+            .split(".")
+            .collect();
+            let new_path;
+            if path.as_str() == "." {
+                new_path = env::current_dir().unwrap().as_path().join(project_name[0]);
+            } else {
+                new_path = Path::new(&path).join(project_name[0]);
+            }
+
+            let state = RefCell::new(State {
+                progress: None,
+                total: 0,
+                current: 0,
+                path: None,
+                newline: false,
+            });
+            let mut cb = RemoteCallbacks::new();
+            cb.transfer_progress(|stats| {
+                let mut state = state.borrow_mut();
+                state.progress = Some(stats.to_owned());
+                progress(&mut *state);
+                true
+            });
+
+            let mut co = CheckoutBuilder::new();
+            co.progress(|path, cur, total| {
+                let mut state = state.borrow_mut();
+                state.path = path.map(|p| p.to_path_buf());
+                state.current = cur;
+                state.total = total;
+                progress(&mut *state);
+            });
+
+            let mut fo = FetchOptions::new();
+            fo.remote_callbacks(cb);
+            RepoBuilder::new()
+                .fetch_options(fo)
+                .with_checkout(co)
+                .clone(new_url.as_str(), new_path.as_path())
+                .unwrap();
+            println!();
+        }
+        Err(_) => {
+            panic!("Repo url is not available");
+        }
+    };
 }
 
 /// Open some link in browser for koifish CLI

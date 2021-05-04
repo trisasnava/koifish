@@ -1,8 +1,8 @@
 [package]
 name = "koifish"
-version = "0.0.6"
+version = "0.0.7"
 authors = ["francis-du <francis@francisdu.com>"]
-keywords = ["cli", "tui", "GITHUB"]
+keywords = ["cli", "tui"]
 edition = "2018"
 license = "Apache-2.0"
 description = "Koifish"

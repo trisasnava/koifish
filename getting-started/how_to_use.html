@@ -181,12 +181,11 @@ FLAGS:
     -V, --version    Prints version information
 
 SUBCOMMANDS:
-    help       Prints this message or the help of the given subcommand(s)
-    join       Join our slack/discord channel,default is slack
-    login      Verify login via GitHub Oauth
-    meet       Start a meeting  at https://meet.jit.si/koig
-    open       Open Koifish github/site/docs
-    upgrade    Upgrade Koifish from github release
+    help      Prints this message or the help of the given subcommand(s)
+    login     Log in via GitHub Oauth
+    meet      Start a online meeting via https://meet.jit.si/
+    open      Open channels &quot;docs,github,site,slack,discord&quot;
+    update    Update from GitHub release
 
 </code></pre>
 <h2 id="login"><a class="header" href="#login">login</a></h2>
@@ -217,25 +216,11 @@ FLAGS:
     -V, --version    Prints version information
 
 ARGS:
-    &lt;channel&gt;     [default: docs]
+    &lt;channel&gt;    Open channels &quot;docs,github,site,slack,discord&quot; [default: docs]
 
-</code></pre>
-<h2 id="join"><a class="header" href="#join">join</a></h2>
-<p>Join Koifish SLACK channel</p>
-<pre><code class="language-shellscript">&gt; koi join -h 
-
-USAGE:
-    koi join [channel]
-
-FLAGS:
-    -h, --help       Prints help information
-    -V, --version    Prints version information
-
-ARGS:
-    &lt;channel&gt;    Join our slack/discord channel [default: slack]
 </code></pre>
 <h2 id="meet"><a class="header" href="#meet">meet</a></h2>
-<p>Start a meeting with https://MEET.jit.si/koi</p>
+<p>Start a online meeting via https://meet.jit.si/</p>
 <pre><code class="language-shellscript">&gt; koi meet -h
 
 USAGE:
@@ -245,18 +230,19 @@ FLAGS:
     -h, --help       Prints help information
     -V, --version    Prints version information
 </code></pre>
-<h2 id="upgrade"><a class="header" href="#upgrade">upgrade</a></h2>
-<p>Upgrade Koifish to latest version</p>
-<pre><code class="language-shellscript">&gt; koi upgrade -h
+<h2 id="update"><a class="header" href="#update">update</a></h2>
+<p>Update Koifish</p>
+<pre><code class="language-shellscript">&gt; koi update -h
 
 USAGE:
-    koi upgrade [FLAGS]
+    koi update [FLAGS]
 
 FLAGS:
     -h, --help        Prints help information
-    -r, --re-oauth    Re-oauth via github Oauth
+    -r, --re-oauth    Re-oauth via GitHub Oauth
     -V, --version     Prints version information
     -v, --verbose     Release notes verbose output
+    
 </code></pre>
 <h2 id="related-links"><a class="header" href="#related-links">Related Links</a></h2>
 <ul>

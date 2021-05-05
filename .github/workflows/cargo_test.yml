@@ -11,7 +11,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        build: [ stable, beta, nightly, macos, windows, msrv ]
+        build: [ stable, beta, nightly, macos, windows ]
         include:
           - build: stable
             os: ubuntu-latest
@@ -41,5 +41,3 @@ jobs:
           cargo -V
       - name: Build and run tests
         run: cargo test
-      - name: Test no default
-        run: cargo test --no-default-features

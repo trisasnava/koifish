@@ -12,7 +12,7 @@ cargo install koifish
 
 ## Binary
 
-Download from [release](https://GITHUB.com/trisasnava/koifish/releases/latest) and to `PATH`
+Download from [release](https://GITHUB.com/trisasnava/koifish/releases/latest) and move to `PATH` dir
 
 ## Other
 

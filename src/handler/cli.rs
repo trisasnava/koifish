@@ -157,7 +157,7 @@ pub fn open(channel: String) {
     const DOCS: &str = "https://trisasnava.org/koifish";
     const SLACK: &str =
         "https://join.slack.com/t/trisasnava/shared_invite/zt-pzee45is-Xlqax8Oa3JC0T7rkqcr4xw";
-    const DISCORD: &str = "https://discord.gg/FztbBXbq";
+    const DISCORD: &str = "https://discord.gg/pjbF6Hwez9";
 
     match channel.as_str() {
         "github" => {

@@ -9,7 +9,7 @@ description = "Koifish"
 readme = "README.md"
 homepage = "https://trisasnava.org/koifish"
 documentation = "https://trisasnava.org/koifish"
-repository = "https://GITHUB.com/trisasnava/koifish"
+repository = "https://github.com/trisasnava/koifish"
 
 [[bin]]
 name = "koi"

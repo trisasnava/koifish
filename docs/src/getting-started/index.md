@@ -25,8 +25,8 @@ A toolchain for community collaboration.
 
 ## Community
 
-<a href="https://trisasnava.slack.com/join/shared_invite/enQtODg1NjI0NTc1NzAzLTBjYTM1YjQxZWZkMTExYTBlNTcxNjQzYTc0MjRmNDNjMmIxZmMwZjM5ODFkZWExNjJkNWMwZWRjOGJlODdiM2Q"><img src="https://img.shields.io/badge/discuss%20on-slack-4A154B?logo=slack&style=flat-square"/></a>
-<a href="https://discord.gg/JeqN3Q9E"><img src="https://img.shields.io/badge/talk-on%20discord-7289DA?logo=DISCORD&style=flat-square"/></a>
+<a href="https://join.slack.com/t/trisasnava/shared_invite/zt-pzee45is-Xlqax8Oa3JC0T7rkqcr4xw"><img src="https://img.shields.io/badge/discuss%20on-slack-4A154B?logo=slack&style=flat-square"/></a>
+<a href="https://discord.gg/pjbF6Hwez9"><img src="https://img.shields.io/badge/talk-on%20discord-7289DA?logo=DISCORD&style=flat-square"/></a>
 
 ## Related Links
 

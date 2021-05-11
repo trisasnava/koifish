@@ -253,7 +253,7 @@ pub fn update(token: &str, verbose: bool) {
                                     // replace old bin file
                                     match utils::self_replace(&*tmp_file, bak_file.as_path()) {
                                         Ok(..) => println!(
-                                            "Update to v{}",
+                                            "Update to {}",
                                             &latest["tag_name"].as_str().unwrap()
                                         ),
                                         Err(e) => {
